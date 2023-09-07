@@ -1,35 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// component import
+import MainSidebar from "./components/sideBar/MainSidebar";
+import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    background: {
+      default: "#ffffff",
+      paper: "#F3F0EB",
+    },
+    primary: {
+      main: "#0C0C0C",
+      others: "#3f51b5",
+    },
+    secondary: {
+      main: "#f50057",
+    },
+
+    text: {
+      primary: "rgba(0,0,0,0.82)",
+      secondary: "rgba(0,0,0,0.67)",
+      disabled: "rgba(0,0,0,0.82)",
+      hint: "rgba(34,25,77,0.91)",
+    },
+    warning: {
+      main: "rgba(237,108,2,0.93)",
+      light: "rgba(240,137,52,0.91)",
+      dark: "rgba(165,75,1,0.81)",
+      contrastText: "rgba(255,255,255,0.91)",
+    },
+    info: {
+      main: "rgba(2,136,209,0.96)",
+      light: "rgba(52,159,218,0.91)",
+      contrastText: "rgba(255,255,255,0.78)",
+    },
+    success: {
+      main: "rgba(46,125,50,0.93)",
+      light: "rgba(87,151,91,0.84)",
+      dark: "rgba(32,87,35,0.77)",
+    },
+    divider: "rgba(0,0,0,0.11)",
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainSidebar />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
