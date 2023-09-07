@@ -35,7 +35,9 @@ const MainSidebar = () => {
           <SidebarButton label="Create New" startIcon={<Add />} />
           <SidebarButton label="Dashboard" startIcon={<Add />} />
         </Box>
-        <Box sx={{ overflowY: "scroll", maxHeight: "80%" }}>
+        <Box
+          sx={{ overflowY: "scroll", maxHeight: "80%", borderRadius: "4px" }}
+        >
           <Rentals />
           <Leases />
           <People />
