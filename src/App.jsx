@@ -8,6 +8,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainSidebar from "./components/sideBar/MainSidebar";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
+import Dashboard from "./screens/Dashboard/Dashboard";
+import ProfileAndSearchBar from "./components/ProfileAndSearchBar/ProfileAndSearchBar";
+import Property from "./screens/Rentals/Property";
 
 const theme = createTheme({
   palette: {
@@ -56,9 +59,29 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainSidebar />} />
-        </Routes>
+        <div style={{ display: "flex", width: "100%" }}>
+          <div style={{ flex: "0.25", maxWidth: "20%" }}>
+            {" "}
+            <MainSidebar />{" "}
+          </div>
+
+          <div className="RoutesContainer">
+            <div className="Routes_ProfileAndSearchBar">
+              <div style={{ float: "right" }}>
+                {" "}
+                <ProfileAndSearchBar />
+              </div>
+            </div>
+
+            <div style={{ overflowY: "scroll" }}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="Unit" element={<Property />} />
+                {/* <Route path="Draft Leases" element={<Dashboard />} /> */}
+              </Routes>{" "}
+            </div>
+          </div>
+        </div>
       </BrowserRouter>
     </ThemeProvider>
   );

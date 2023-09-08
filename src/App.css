@@ -1,0 +1,178 @@
+/* ===========  RoutesCSS ===========*/
+
+.RoutesContainer {
+  flex: 0.8;
+  /* background-color: blue; */
+  padding-left: 2vw;
+  display: grid;
+  grid-template-rows: 10% 90%;
+  grid-template-areas: "profile" "routes";
+}
+
+.Routes_ProfileAndSearchBar {
+  grid-area: profile;
+  /* background-color: red; */
+  padding-right: 2vw;
+}
+
+.RoutesContainer div:nth-child(2) {
+  grid-area: routes;
+  /* background-color: red; */
+}
+/* =========== END RoutesCSS ===========*/
+
+/* ===========  DashboardCSS ===========*/
+
+.dashboardContainer {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 13vh 40vh 33vh;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-areas: "header header header header" "received received received mostviewed" "outstanding outstanding revenueCard expenesCard";
+}
+
+.dashboardContainer div:nth-child(1) {
+  grid-area: header;
+  /* background-color: rebeccapurple; */
+}
+
+.dashboardContainer div:nth-child(2) {
+  grid-area: received;
+  /* background-color: red; */
+}
+.dashboardContainer div:nth-child(3) {
+  grid-area: mostviewed;
+  /* background-color: firebrick; */
+}
+.dashboardContainer div:nth-child(4) {
+  grid-area: outstanding;
+  /* background-color: teal; */
+}
+.dashboardContainer div:nth-child(5) {
+  grid-area: revenueCard;
+  /* background-color: orangered; */
+}
+.dashboardContainer div:nth-child(6) {
+  grid-area: expenesCard;
+  /* background-color: orangered; */
+}
+.commonPadding {
+  padding: 2dvh 2% 2dvh 2%;
+}
+
+/* =========== END DashboardCSS ===========*/
+
+/* =============**RECENT PAYMENT RECEIVED**======= */
+.recentPaymentReceive {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 20% 80%;
+  grid-template-areas: "header" "stats";
+}
+.recentPaymentReceive div:nth-child(1) {
+  grid-area: header;
+  /* background-color: aqua; */
+}
+.recentPaymentReceive div:nth-child(2) {
+  grid-area: stats;
+  /* background-color: black; */
+}
+
+/* YourComponent.css */
+:root {
+  --scrollbar-width: 8px;
+}
+
+.PaymentReceivedScroll::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+.PaymentReceivedScroll::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.PaymentReceivedScroll:not(:hover)::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.PaymentReceivedScroll::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+/* .MuiBox-root css-hxfpyy */
+.PaymentReceivedScroll {
+  overflow-y: scroll;
+  scrollbar-gutter: stable both-edges;
+}
+
+/* =============**END OF RECENT PAYMENT RECEIVED**======= */
+
+/* ==================***TOTAL Revenue***** */
+.totalRevenue {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 55% 45%;
+  grid-template-areas: "header graph" "stats stats";
+}
+.totalRevenue div:nth-child(1) {
+  grid-area: header;
+  /* background-color: aqua; */
+}
+.totalRevenue div:nth-child(2) {
+  grid-area: graph;
+  /* background-color: black; */
+}
+.totalRevenue div:nth-child(3) {
+  grid-area: stats;
+  /* background-color: green; */
+}
+/* =====================***End of Total Revenue** */
+.Leases {
+  display: grid;
+  /* grid-template-columns: 100%; */
+  grid-template-rows: 20% 80%;
+  grid-template-areas: "header" "info";
+}
+.Leases div:nth-child(1) {
+  grid-area: header;
+  /* background-color: aqua; */
+}
+.Leases div:nth-child(2) {
+  grid-area: info;
+  /* background-color: rgb(161, 110, 110); */
+  /* overflow-y: scroll; */
+}
+.leasesOutstandingBalnce {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ==============   Total Sales  =================== */
+.flexBTN {
+  display: flex;
+  align-items: center;
+  gap: 4.5rem;
+}
+/* ============== End   Total Sales  =================== */
+
+.image {
+  display: grid;
+  grid-template-rows: 10% 60% 30%;
+  grid-template-areas: "up" "header" "stat";
+}
+.image div:nth-child(1) {
+  grid-area: header;
+  background-color: aqua;
+}
+.image div:nth-child(2) {
+  grid-area: stat;
+  background-color: rgb(161, 110, 110);
+}
+.image div:nth-child(3) {
+  grid-area: up;
+  /* background-color: blueviolet; */
+}
+.askingPrice {
+  color: #f8c99f;
+}
