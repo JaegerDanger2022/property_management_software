@@ -8,7 +8,8 @@ import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import Dashboard from "./screens/Dashboard/Dashboard";
 import ProfileAndSearchBar from "./components/ProfileAndSearchBar/ProfileAndSearchBar";
-import Property from "./screens/Rentals/Property";
+import Property from "./screens/Rentals/Property/Property";
+import PropertyDetails from "./screens/Rentals/Property/PropertyDetails";
 
 const theme = createTheme({
   palette: {
@@ -75,7 +76,11 @@ function App() {
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="Property" element={<Property />} />
-
+                {/* propertydetails screen */}
+                <Route
+                  path="propertyDetails/:key"
+                  element={<PropertyDetails />}
+                />
               </Routes>{" "}
             </div>
           </div>

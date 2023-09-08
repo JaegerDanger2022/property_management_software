@@ -89,6 +89,7 @@ function PropertyTables() {
               numberOfUnits={property.numberOfUnits}
               availableUnits={property.availableUnits}
               propertyType={property.propertyType}
+              propertyImages={property.propertyImages}
             />
           ))}
         </tbody>
