@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -76,8 +74,7 @@ function App() {
             <div style={{ overflowY: "scroll" }}>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
-                <Route path="Unit" element={<Property />} />
-                {/* <Route path="Draft Leases" element={<Dashboard />} /> */}
+                <Route path="Property" element={<Property />} />
               </Routes>{" "}
             </div>
           </div>
