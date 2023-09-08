@@ -218,3 +218,8 @@
 .propertyItem:hover {
   cursor: pointer;
 }
+/* add tenant modal */
+.close_icon:hover {
+  color: red;
+  cursor: pointer;
+}

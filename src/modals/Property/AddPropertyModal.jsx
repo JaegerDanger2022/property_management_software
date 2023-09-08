@@ -16,7 +16,7 @@ import {
 import { AddAPhoto } from "@mui/icons-material";
 // CUSTOM COMPONENTS
 import { CustomTextField } from "../../components/CustomTextField/CustomTextField";
-import { ActionButton } from "../../components/ActionButton/ActionButton";
+import ActionButton from "../../components/ActionButton/ActionButton";
 import { SelectedImages } from "../../components/AddProperty Components/SelectedImages";
 import properties from "./PropertyTypeDataset/PropertyTypes";
 // ROUTER
@@ -29,10 +29,7 @@ import { db, storage } from "../../../app/utils/firebaseConfig";
 import { doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-export const AddPropertyModal = ({
-  addPropertyOpen,
-  handleAddPropertyClose,
-}) => {
+function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
   const theme = useTheme();
 
   const navigate = useNavigate();
@@ -478,4 +475,6 @@ export const AddPropertyModal = ({
       </Fade>
     </Modal>
   );
-};
+}
+
+export default AddPropertyModal;

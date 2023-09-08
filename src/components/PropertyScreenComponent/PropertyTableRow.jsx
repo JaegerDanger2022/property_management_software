@@ -24,6 +24,7 @@ const PropertyTableRow = ({
   propertyType,
   numberOfUnits,
   availableUnits,
+  propertyImages,
   propertyKey,
 }) => {
   // styles
@@ -55,8 +56,7 @@ const PropertyTableRow = ({
     await dispatch(setPropertyDetailsKey(key));
     await dispatch(setPropertyDetailsImages(images));
     // navigate to the details screen
-    // navigate(`/propertyDetails/:${key}`);
-    console.log(`${key} has been clicked`);
+    navigate(`/propertyDetails/:${key}`);
   };
   return (
     <tr
@@ -67,7 +67,8 @@ const PropertyTableRow = ({
           address,
           numberOfUnits,
           availableUnits,
-          propertyKey
+          propertyKey,
+          propertyImages
         )
       }
     >
