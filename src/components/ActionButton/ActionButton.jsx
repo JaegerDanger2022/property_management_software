@@ -1,7 +1,7 @@
 import { Button, useTheme } from "@mui/material";
 import React from "react";
 
-export const ActionButton = ({ label, startIcon, endIcon, handleAction }) => {
+function ActionButton({ label, startIcon, endIcon, handleAction }) {
   const theme = useTheme();
 
   return (
@@ -15,4 +15,6 @@ export const ActionButton = ({ label, startIcon, endIcon, handleAction }) => {
       {label}
     </Button>
   );
-};
+}
+
+export default ActionButton;
