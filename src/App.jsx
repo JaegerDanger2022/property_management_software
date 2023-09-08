@@ -11,6 +11,7 @@ import { createTheme } from "@mui/material/styles";
 import Dashboard from "./screens/Dashboard/Dashboard";
 import ProfileAndSearchBar from "./components/ProfileAndSearchBar/ProfileAndSearchBar";
 import Property from "./screens/Rentals/Property";
+import { AddProperty } from "./screens/Property/AddProperty";
 
 const theme = createTheme({
   palette: {
@@ -77,6 +78,9 @@ function App() {
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="Unit" element={<Property />} />
+                {/* Add Property */}
+                <Route path="AddProperty/:userid" element={<AddProperty />} />
+
                 {/* <Route path="Draft Leases" element={<Dashboard />} /> */}
               </Routes>{" "}
             </div>
