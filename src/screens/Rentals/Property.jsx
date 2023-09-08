@@ -12,6 +12,7 @@ function Property() {
         <PropertyTables />
       </div>
     </div>
+
   );
 }
 
