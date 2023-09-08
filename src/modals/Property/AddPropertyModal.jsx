@@ -189,14 +189,15 @@ export const AddPropertyModal = ({
   };
 
   return (
-    <Modal open={addPropertyOpen} onClose={handleAddPropertyClose}>
+    <Modal
+      sx={{ display: "grid", placeContent: "center" }}
+      open={addPropertyOpen}
+      onClose={handleAddPropertyClose}
+    >
       <Fade in={addPropertyOpen}>
         <Box
           className="ModalBox"
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
             width: "70dvw",
             backgroundColor: theme.palette.background.paper,
           }}
