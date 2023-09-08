@@ -176,3 +176,20 @@
 .askingPrice {
   color: #f8c99f;
 }
+
+/* ================**Property DashBoard**=========== */
+.propertyContainer {
+  display: grid;
+  grid-template-rows: 20% 80%;
+  grid-template-areas: "prop1" "prop2";
+  height: 100vh;
+}
+.propertyContainer div:nth-child(1) {
+  grid-area: prop1;
+  /* background-color: aqua; */
+}
+.propertyContainer div:nth-child(2) {
+  grid-area: prop2;
+  background-color: rgb(161, 110, 110);
+}
+/* ========================****Table for Property ************** */
