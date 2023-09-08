@@ -190,6 +190,18 @@
 }
 .propertyContainer div:nth-child(2) {
   grid-area: prop2;
-  background-color: rgb(161, 110, 110);
+  /* background-color: rgb(161, 110, 110); */
 }
 /* ========================****Table for Property ************** */
+.office {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.BookUnits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}

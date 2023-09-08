@@ -14,9 +14,10 @@ import {
   List,
   ListItem,
   ListItemAvatar,
+  ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Assignment, Image } from "@mui/icons-material";
+import { Apartment, Assignment, Book, Build } from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -54,7 +55,7 @@ const moreRows = [
     <div>
       {/* =============**PropertyData**==== */}
 
-      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+      <List sx={{ width: "100%", maxWidth: 260, bgcolor: "background.paper" }}>
         <ListItem>
           <ListItemAvatar>
             <IconButton>
@@ -66,10 +67,18 @@ const moreRows = [
       </List>
       {/* =============** End of PropertyData**==== */}
     </div>,
-    <div></div>,
-    <div>ig</div>,
-    <div>jig</div>,
-    <div>igy</div>
+    <div className="office">
+      <div>
+        <Apartment />
+      </div>
+      <div>Office</div>
+    </div>,
+    <div className="BookUnits">
+      <div>
+        <Book />
+      </div>
+      <div>2 units</div>
+    </div>
   ),
 
   // Add more rows as needed
