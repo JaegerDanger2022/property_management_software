@@ -8,7 +8,13 @@ import {
 } from "@mui/material";
 import React from "react";
 
-function PaymentRecieveRow({ amountReceived, tenantName }) {
+function PaymentRecieveRow({
+  amountReceived,
+  tenantName,
+  recentTenantDate,
+  recentTenantIcon,
+  address,
+}) {
   return (
     <ListItem>
       <ListItemAvatar>
@@ -17,7 +23,9 @@ function PaymentRecieveRow({ amountReceived, tenantName }) {
       <ListItemText
         primary={
           <>
-            Work
+            {/* THIS IS RECENT TENANT NAME OR HOUSE ADDRESS */}
+            {address}
+            {/* END OF RECENT TENANT NAME OR HOUSE ADDRESS */}
             <span
               style={{
                 float: "right",
@@ -25,17 +33,23 @@ function PaymentRecieveRow({ amountReceived, tenantName }) {
                 alignItems: "center",
               }}
             >
+              {/* END OF RECENT TENANT NAME OR HOUSE ADDRESS */}
+
+              {/* THIS IS RECENT TENANT MONEY NOTE ICON */}
               <div>
-                <IconButton>
-                  {" "}
-                  <Cancel />{" "}
-                </IconButton>
+                <IconButton>{recentTenantIcon}</IconButton>
               </div>
+              {/* END OF RECENT TENANT MONEY NOTE ICON */}
+
+              {/* THIS IS RECENT PAYMENT RECEIVED AMOUNT NOTE */}
               <div>{amountReceived}</div>
+              {/* END OF RECENT PAYMENT RECEIVED AMOUNT  NOTE*/}
             </span>
           </>
         }
-        secondary="Jan 7, 2014"
+        // THIS IS RECENT PAYMENT RECEIVED DATE
+        secondary={recentTenantDate}
+        // END OF RECENT PAYMENT RECEIVED DATE
       />
     </ListItem>
   );

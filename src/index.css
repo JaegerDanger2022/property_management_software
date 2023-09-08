@@ -23,6 +23,10 @@ body {
 .MuiBox-root::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.MuiBox-root:not(:hover)::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .MuiBox-root::-webkit-scrollbar-thumb:hover {

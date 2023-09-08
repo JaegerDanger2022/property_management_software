@@ -73,7 +73,7 @@ function App() {
               </div>
             </div>
 
-            <div>
+            <div style={{ overflowY: "scroll" }}>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="Unit" element={<Property />} />
