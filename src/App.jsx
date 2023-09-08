@@ -77,6 +77,8 @@ function App() {
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="Unit" element={<Property />} />
+                {/*  Property */}
+                <Route path="Property" element={<Property />} />
                 {/* <Route path="Draft Leases" element={<Dashboard />} /> */}
               </Routes>{" "}
             </div>
