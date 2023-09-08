@@ -213,3 +213,8 @@
   color: aliceblue;
   height: 5vh;
 }
+
+/* propertyItem */
+.propertyItem:hover {
+  cursor: pointer;
+}

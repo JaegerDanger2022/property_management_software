@@ -60,6 +60,7 @@ const PropertyTableRow = ({
   };
   return (
     <tr
+      className="propertyItem"
       onClick={() =>
         handleNavigateToPropertyDetail(
           name,
@@ -142,7 +143,6 @@ const PropertyTableRow = ({
         </div>
         {/* ================================================== */}
       </td>
-      <td>{propertyKey}</td>
     </tr>
   );
 };
