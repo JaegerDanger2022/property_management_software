@@ -17,13 +17,13 @@ const Accounting = () => {
     },
     { label: "Banking", startIcon: "account_balance", path: "accounting" },
     {
-      label: "ChartofAccounts",
+      label: "Chart of Accounts",
       startIcon: "person_book",
       path: "Lease Renewals",
     },
     { label: "Print Checks", startIcon: "print", path: "accounting" },
     {
-      label: "OutgoingPayments",
+      label: "Outgoing Payments",
       startIcon: "pie_chart",
       path: "accounting",
       path: "accounting",

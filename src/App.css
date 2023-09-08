@@ -1,0 +1,60 @@
+/* ===========  RoutesCSS ===========*/
+
+.RoutesContainer {
+  flex: 0.8;
+  /* background-color: blue; */
+  padding-left: 2vw;
+  display: grid;
+  grid-template-rows: 10% 90%;
+  grid-template-areas: "profile" "routes";
+}
+
+.Routes_ProfileAndSearchBar {
+  grid-area: profile;
+  /* background-color: red; */
+  padding-right: 2vw;
+}
+
+.RoutesContainer div:nth-child(2) {
+  grid-area: routes;
+  /* background-color: red; */
+}
+/* =========== END RoutesCSS ===========*/
+
+/* ===========  DashboardCSS ===========*/
+
+.dashboardContainer {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 13% 43.5% 43.5%;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-areas: "header header header header" "received received received mostviewed" "outstanding outstanding leasingActivity leasingActivity";
+}
+
+.dashboardContainer div:nth-child(1) {
+  grid-area: header;
+  /* background-color: rebeccapurple; */
+}
+
+.dashboardContainer div:nth-child(2) {
+  grid-area: received;
+  /* background-color: red; */
+}
+.dashboardContainer div:nth-child(3) {
+  grid-area: mostviewed;
+  /* background-color: firebrick; */
+}
+.dashboardContainer div:nth-child(4) {
+  grid-area: outstanding;
+  /* background-color: teal; */
+}
+.dashboardContainer div:nth-child(5) {
+  grid-area: leasingActivity;
+  /* background-color: orangered; */
+}
+
+.commonPadding {
+  padding: 2dvh 2% 2dvh 2%;
+}
+
+/* =========== END DashboardCSS ===========*/
