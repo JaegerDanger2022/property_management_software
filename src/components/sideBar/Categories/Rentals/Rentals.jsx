@@ -3,7 +3,8 @@ import CategoryAccordion from "../../Accordion/CategoryAccordion";
 
 const Rentals = () => {
   const dataSet = [
-    { label: "Property", startIcon: "apartment", path: "Property " },
+
+    { label: "Property", startIcon: "apartment", path: "Property" },
     { label: "Unit", startIcon: "roofing", path: "Unit" },
   ];
 
