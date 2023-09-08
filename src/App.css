@@ -193,15 +193,23 @@
   /* background-color: rgb(161, 110, 110); */
 }
 /* ========================****Table for Property ************** */
+.property {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+.location {
+  display: flex;
+  align-items: center;
+}
 .office {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
 }
-.BookUnits {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+.propertyColor {
+  background-color: black;
+  color: aliceblue;
+  height: 5vh;
 }

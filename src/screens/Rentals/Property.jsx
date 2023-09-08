@@ -1,6 +1,6 @@
 import React from "react";
 import "../../App.css";
-import PropertyTables from "../../Propety Table/PropertyTable";
+import PropertyTables from "../../components/PropertyScreenComponent/PropertyTable";
 
 function Property() {
   return (
