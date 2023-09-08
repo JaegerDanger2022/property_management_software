@@ -7,15 +7,26 @@ import {
   MoreVert,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import {
+  setPropertyDetailsAddress,
+  setPropertyDetailsAvailableUnits,
+  setPropertyDetailsImages,
+  setPropertyDetailsKey,
+  setPropertyDetailsName,
+  setPropertyDetailsNumberOfUnits,
+} from "../../../app/features/propertyDetailsSlice";
 
 const PropertyTableRow = ({
   name,
   address,
-  key,
   propertyType,
   numberOfUnits,
   availableUnits,
+  propertyKey,
 }) => {
+  // styles
   const cellStyle = {
     // border: "1px solid rgb(190, 190, 190)",
     padding: "5px 10px",
@@ -25,8 +36,40 @@ const PropertyTableRow = ({
     height: "100%",
     margin: "0 20px",
   };
+  const dispatch = useDispatch();
+  //   Navigation
+  const navigate = useNavigate();
+  // function to navigate to  PropertyDetail Screen
+  const handleNavigateToPropertyDetail = async (
+    name,
+    address,
+    numberOfUnits,
+    availableUnits,
+    key,
+    images
+  ) => {
+    await dispatch(setPropertyDetailsName(name));
+    await dispatch(setPropertyDetailsAddress(address));
+    await dispatch(setPropertyDetailsNumberOfUnits(numberOfUnits));
+    await dispatch(setPropertyDetailsAvailableUnits(availableUnits));
+    await dispatch(setPropertyDetailsKey(key));
+    await dispatch(setPropertyDetailsImages(images));
+    // navigate to the details screen
+    // navigate(`/propertyDetails/:${key}`);
+    console.log(`${key} has been clicked`);
+  };
   return (
-    <tr>
+    <tr
+      onClick={() =>
+        handleNavigateToPropertyDetail(
+          name,
+          address,
+          numberOfUnits,
+          availableUnits,
+          propertyKey
+        )
+      }
+    >
       <th style={cellStyle} scope="row">
         {/* ============== Property ==========*/}
         <div className="property">
@@ -99,6 +142,7 @@ const PropertyTableRow = ({
         </div>
         {/* ================================================== */}
       </td>
+      <td>{propertyKey}</td>
     </tr>
   );
 };

@@ -25,20 +25,20 @@ function PropertyTables() {
   const [propertyList, setPropertyList] = useState([]);
   useEffect(() => {
     // get saved portfolio list from database
-    const portfolioListRef = collection(db, `user_data/testUser/portfolio`);
+    // const portfolioListRef = collection(db, `user_data/testUser/portfolio`);
 
-    try {
-      const q = query(portfolioListRef, orderBy("dateAdded", "desc"));
-      const allDocs = onSnapshot(q, (snapshot) => {
-        const items = [];
-        snapshot.forEach((doc) => {
-          items.push({ ...doc.data() });
-          setsavedPortfolioList(items);
-        });
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const q = query(portfolioListRef, orderBy("dateAdded", "desc"));
+    //   const allDocs = onSnapshot(q, (snapshot) => {
+    //     const items = [];
+    //     snapshot.forEach((doc) => {
+    //       items.push({ ...doc.data() });
+    //       setsavedPortfolioList(items);
+    //     });
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
     // get saved properties from database
     const listRef = collection(db, `user_data/testUser/properties`);
@@ -82,6 +82,8 @@ function PropertyTables() {
         <tbody>
           {propertyList.map((property) => (
             <PropertyTableRow
+              key={property.key}
+              propertyKey={property.key}
               name={property.name}
               address={property.address}
               numberOfUnits={property.numberOfUnits}
