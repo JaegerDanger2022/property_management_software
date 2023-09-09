@@ -3,13 +3,13 @@ import React from "react";
 import { SidebarButton } from "./Buttons/SidebarButton";
 import { Add, Menu } from "@mui/icons-material";
 import Rentals from "./Categories/Rentals/Rentals";
-import Leases from "./Categories/Leases/Leases";
 import Accounting from "./Categories/Accounting/Accounting";
 import People from "./Categories/People/People";
 import Tasks from "./Categories/Tasks/Tasks";
 import Communications from "./Categories/Communication/Communication";
 import Reports from "./Categories/Reports/Reports";
 import Settings from "./Categories/Settings/Settings";
+import Leasing from "./Categories/Leases/Leasing";
 
 const MainSidebar = () => {
   return (
@@ -76,7 +76,7 @@ const MainSidebar = () => {
           }}
         >
           <Rentals />
-          <Leases />
+          <Leasing />
           <People />
           <Tasks />
           <Accounting />

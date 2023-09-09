@@ -9,6 +9,13 @@ import { createTheme } from "@mui/material/styles";
 import Dashboard from "./screens/Dashboard/Dashboard";
 import ProfileAndSearchBar from "./components/ProfileAndSearchBar/ProfileAndSearchBar";
 import Property from "./screens/Rentals/Property";
+import Units from "./components/PropertyScreenComponent/units/Units";
+import ActiveLeasing from "./components/PropertyScreenComponent/LeasingScreenComponent/ActiveLeasing";
+import ChartOfAccounting from "./components/PropertyScreenComponent/AccountingScreenComponent/ChartOfAccounts";
+import AllTasks from "./components/PropertyScreenComponent/AllTasksScreenComponent/AllTasks";
+import MyTasks from "./components/PropertyScreenComponent/MyTasks/MyTasks";
+import Reports from "./components/PropertyScreenComponent/ReportsScreenComponent/Reports";
+import ActualReports from "./components/PropertyScreenComponent/ReportsScreenComponent/ActualReports";
 
 const theme = createTheme({
   palette: {
@@ -74,7 +81,18 @@ function App() {
             <div style={{ overflowY: "scroll" }}>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
+                <Route path="Actual Reports" element={<ActualReports />} />
+                <Route path="Reports" element={<Reports />} />
+
+                <Route path="My Tasks" element={<MyTasks />} />
+                <Route path="All Tasks" element={<AllTasks />} />
                 <Route path="Property" element={<Property />} />
+                <Route
+                  path="Chart of Accounts"
+                  element={<ChartOfAccounting />}
+                />
+                <Route path="Unit" element={<Units />} />
+                <Route path="Active Leases" element={<ActiveLeasing />} />
               </Routes>{" "}
             </div>
           </div>

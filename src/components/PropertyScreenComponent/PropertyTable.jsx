@@ -4,7 +4,6 @@ import {
   AddLocation,
   Apartment,
   Assignment,
-  AssignmentInd,
   Book,
   MoreVert,
 } from "@mui/icons-material";
@@ -23,7 +22,6 @@ function PropertyTables() {
   };
 
   const cellStyle = {
-    // border: "1px solid rgb(190, 190, 190)",
     padding: "5px 10px",
   };
   const dividerStyle = {

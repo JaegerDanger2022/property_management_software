@@ -3,30 +3,34 @@ import CategoryAccordion from "../../Accordion/CategoryAccordion";
 
 const Accounting = () => {
   const dataSet = [
-    { label: " Unpaid Rent", startIcon: "strikethrough_s", path: "accounting" },
+    { label: "Unpaid Rent", startIcon: "strikethrough_s", path: "Unpaid Rent" },
     {
       label: "Open Bills",
       startIcon: "paid",
-      path: "accounting",
+      path: "Open Bills",
     },
-    { label: "Reconcilliation", startIcon: "recycling", path: "accounting" },
+    {
+      label: "Reconcilliation",
+      startIcon: "recycling",
+      path: "Reconcilliation",
+    },
     {
       label: "Recurring Bills",
       startIcon: "currency_exchange",
-      path: "accounting",
+      path: "Recurring Bills",
     },
-    { label: "Banking", startIcon: "account_balance", path: "accounting" },
+    { label: "Banking", startIcon: "account_balance", path: "Banking" },
     {
       label: "Chart of Accounts",
       startIcon: "person_book",
-      path: "Lease Renewals",
+      path: "Chart of Accounts",
     },
-    { label: "Print Checks", startIcon: "print", path: "accounting" },
+    { label: "Print Checks", startIcon: "print", path: "Print Checks" },
     {
       label: "Outgoing Payments",
       startIcon: "pie_chart",
       path: "accounting",
-      path: "accounting",
+      path: "Outgoing Payments",
     },
   ];
 

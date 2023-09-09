@@ -182,7 +182,7 @@
   display: grid;
   grid-template-rows: 20% 80%;
   grid-template-areas: "prop1" "prop2";
-  height: 100vh;
+  height: 100%;
 }
 .propertyContainer div:nth-child(1) {
   grid-area: prop1;
@@ -211,5 +211,94 @@
 .propertyColor {
   background-color: black;
   color: aliceblue;
-  height: 5vh;
+  height: 100%;
+}
+/* ============**Units**================ */
+.unitsContainer {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 20% 10% 70%;
+  grid-template-areas: "header" "stats" "nav";
+  height: 100%;
+}
+.unitsContainer div:nth-child(1) {
+  grid-area: header;
+  /* background-color: aqua; */
+}
+.unitsContainer div:nth-child(2) {
+  grid-area: stats;
+  /* background-color: red; */
+}
+.unitsContainer div:nth-child(3) {
+  grid-area: nav;
+  /* background-color: green; */
+}
+.propertyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.color {
+  color: aliceblue;
+}
+/* ===============**Chart Of Accounting***================= */
+.chartOfAccounting {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  font-size: 13px;
+  gap: 0.5rem;
+}
+.watch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbarWidth {
+  width: 400px;
+}
+/* =================**My Tasks ******* */
+.allMyTasks {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  gap: 0.5rem;
+}
+.mytasksList {
+  display: flex;
+  align-items: center;
+}
+/* ============**REPORTS**===== */
+.reportsContainer {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 90%;
+  grid-template-areas: "header" "stats";
+  height: 100%;
+}
+.reportsContainer div:nth-child(1) {
+  grid-area: header;
+  /* background-color: aqua; */
+}
+.reportsContainer div:nth-child(2) {
+  grid-area: stats;
+  /* background-color: red; */
+}
+.ReportsBox {
+  display: flex;
+  flex-direction: column;
+}
+.underline-text {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: red;
 }
