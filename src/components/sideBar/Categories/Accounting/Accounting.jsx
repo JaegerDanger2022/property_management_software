@@ -29,7 +29,6 @@ const Accounting = () => {
     {
       label: "Outgoing Payments",
       startIcon: "pie_chart",
-      path: "accounting",
       path: "Outgoing Payments",
     },
   ];
