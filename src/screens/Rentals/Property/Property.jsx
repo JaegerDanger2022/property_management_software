@@ -14,7 +14,12 @@ function Property() {
   };
   return (
     <div className="propertyContainer">
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)" }}>
+      <div
+        style={{
+          display: "grid",
+          marginBottom: "2dvh",
+        }}
+      >
         <h1 style={{ lineHeight: "1" }}>Property</h1>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <ActionButton
@@ -30,6 +35,7 @@ function Property() {
       {/* add property modal */}
       <AddPropertyModal
         addPropertyOpen={addPropertyOpen}
+        setAddPropertyOpen={setAddPropertyOpen}
         handleAddPropertyClose={handleAddPropertyClose}
       />
     </div>

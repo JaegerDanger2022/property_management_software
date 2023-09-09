@@ -29,7 +29,11 @@ import { db, storage } from "../../../app/utils/firebaseConfig";
 import { doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
+function AddPropertyModal({
+  addPropertyOpen,
+  setAddPropertyOpen,
+  handleAddPropertyClose,
+}) {
   const theme = useTheme();
 
   const navigate = useNavigate();
@@ -48,13 +52,6 @@ function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
   const [propertyImages, setPropertyImages] = useState([]);
   // random doc name
   const [randomDocName, setRandomDocName] = useState(v4);
-
-  // image format alert state
-  const [incorrectImageFormat, setIncorrectImageFormat] = useState(false);
-  // alert close function
-  const handleClose = () => {
-    setIncorrectImageFormat(false);
-  };
 
   // empty fields alert
   const [emptyFieldsAlert, setEmptyFieldsAlert] = useState(false);
@@ -118,6 +115,8 @@ function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
       ) {
         setEmptyFieldsAlert(true);
       } else {
+        setAddPropertyOpen(false);
+
         const propertyRef = doc(
           db,
           `user_data/testUser/properties`,
@@ -139,14 +138,12 @@ function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
         await updateDoc(numberOfUploadsRef, {
           numberOfUploads: increment(1),
         });
-        // navigate
-        navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
-
+  // function to upload images
   const handleFileChange = async (event) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = [];
@@ -154,31 +151,23 @@ function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
       setMaximumPicturesAlert(true);
     } else {
       for (let i = 0; i < selectedFiles.length; i++) {
-        if (
-          selectedFiles[i].type == "image/jpeg" ||
-          selectedFiles[i].type == "image/jpg" ||
-          selectedFiles[i].type == "image/png"
-        ) {
-          const selectedFile = selectedFiles[i];
+        const selectedFile = selectedFiles[i];
 
-          // upload the image to google storage
-          const profileImageRef = ref(
-            storage,
-            `buildingimages/test/${selectedFile.name}`
-          );
+        // upload the image to google storage
+        const profileImageRef = ref(
+          storage,
+          `buildingimages/test/${selectedFile.name}`
+        );
 
-          uploadBytes(profileImageRef, selectedFile).then((snapshot) => {
-            setUploadComplete(true);
-            // Get the download URL of the uploaded image -- read/write count 2
-            getDownloadURL(snapshot.ref).then((url) => {
-              // save image to be displayed
-              selectedFilesArray.push(url);
-            });
+        uploadBytes(profileImageRef, selectedFile).then((snapshot) => {
+          setUploadComplete(true);
+          // Get the download URL of the uploaded image -- read/write count 2
+          getDownloadURL(snapshot.ref).then((url) => {
+            // save image to be displayed
+            selectedFilesArray.push(url);
           });
-          setIsLoading(false);
-        } else {
-          setIncorrectImageFormat(true);
-        }
+        });
+        setIsLoading(false);
       }
       setImageDisplay(selectedFilesArray);
       setPropertyImages(selectedFilesArray);
@@ -392,6 +381,7 @@ function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
                 <div>
                   <input
                     type="file"
+                    accept=".jpg, .jpeg, .png"
                     multiple
                     style={{ display: "none" }}
                     ref={fileInputRef}
@@ -399,16 +389,7 @@ function AddPropertyModal({ addPropertyOpen, handleAddPropertyClose }) {
                   />
                 </div>
               </div>
-              {/* incorrect format alert */}
-              <Snackbar
-                open={incorrectImageFormat}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert severity="error">
-                  Files can only be .jpeg, .jpg and .png formats
-                </Alert>
-              </Snackbar>
+
               {/* upload complete alert */}
 
               <Snackbar

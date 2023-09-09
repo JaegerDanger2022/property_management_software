@@ -47,7 +47,8 @@ export function validatePhoneNumber(number) {
 
 export function isValidNumber(input) {
   // Check if the input is a number and does not start with '0'
-  if (!isNaN(input) && !input.startsWith("0")) {
+  // const input = toString(number);
+  if (!isNaN(input)) {
     return true; // Valid
   } else {
     return false; // Invalid

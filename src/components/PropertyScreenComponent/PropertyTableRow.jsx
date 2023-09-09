@@ -72,7 +72,7 @@ const PropertyTableRow = ({
         )
       }
     >
-      <th style={cellStyle} scope="row">
+      <td style={cellStyle} scope="row">
         {/* ============== Property ==========*/}
         <div className="property">
           <div>
@@ -93,26 +93,22 @@ const PropertyTableRow = ({
           </div>
         </div>
         {/* ====================================== */}
-      </th>
+      </td>
       {/* ================  Type ==================== */}
-      <th style={cellStyle} scope="row">
+      <td style={cellStyle} scope="row">
         {/* ============================ */}
         <div className="office">
-          <div>
-            <span style={dividerStyle}></span>{" "}
-          </div>
+          <div>{/* <span style={dividerStyle}></span>{" "} */}</div>
           <div>
             <Apartment />
           </div>
           <div>{propertyType}</div>
         </div>
         {/* =============== Total Units ================ */}
-      </th>
+      </td>
       <td style={cellStyle}>
         <div className="office">
-          <div>
-            <span style={dividerStyle}></span>{" "}
-          </div>
+          <div>{/* <span style={dividerStyle}></span>{" "} */}</div>
           <div>
             <Book />
           </div>
@@ -122,9 +118,7 @@ const PropertyTableRow = ({
       <td style={cellStyle}>
         {/* ================== Active Units ======================= */}
         <div className="office">
-          <div>
-            <span style={dividerStyle}></span>{" "}
-          </div>
+          <div>{/* <span style={dividerStyle}></span>{" "} */}</div>
           <div>
             <Book />
           </div>
@@ -135,9 +129,7 @@ const PropertyTableRow = ({
       <td style={cellStyle}>
         {/* ==================  Menu ======================= */}
         <div className="office">
-          <div>
-            <span style={dividerStyle}></span>{" "}
-          </div>
+          <div>{/* <span style={dividerStyle}></span>{" "} */}</div>
           <div>
             <MoreVert />
           </div>
