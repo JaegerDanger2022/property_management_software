@@ -1,14 +1,17 @@
 import { AddAPhoto, Close } from "@mui/icons-material";
 import { Button, Fade, Modal, Typography, useTheme } from "@mui/material";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { CustomTextField } from "../../components/CustomTextField/CustomTextField";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 export const AddTenantToPropertyModal = ({
   addTenantModalOpen,
   tenantFullName,
   setTenantFullName,
   tenantDOB,
-  setTenantDOB,
+  // setTenantDOB,
+  handleAddDOB,
   tenantAddress,
   setTenantAddress,
   tenantPhoneNumber,
@@ -35,10 +38,25 @@ export const AddTenantToPropertyModal = ({
   setTenantDependents,
   tenantPhoneNumberError,
   tenantECPhoneNumberError,
-  tenantsDependentsNumberError,
-  tenantsUnitsToOccupyNumberError,
+
+  // saving files
+  setSelectedFiles,
 }) => {
+  // TEMPORAL OWNER ID
+  const ownerid = "test";
+
   const theme = useTheme();
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  // handle file upload
+  const fileInputRef = useRef(null);
+
+  // function to select files
+  const handleFileChange = async (event) => {
+    const selectedFiles = event.target.files;
+    setSelectedFiles(event.target.files);
+    // save file names to uploadedfiles state
+    setUploadedFiles(Object.values(selectedFiles));
+  };
   return (
     <Modal
       open={addTenantModalOpen}
@@ -112,10 +130,15 @@ export const AddTenantToPropertyModal = ({
                   <Typography variant="body1">Date of Birth</Typography>
                 </div>
                 <div className="input-field">
-                  <CustomTextField
+                  {/* <CustomTextField
                     value={tenantDOB}
                     placeholder="Date of Birth"
                     onchange={setTenantDOB}
+                  /> */}
+                  <DatePicker
+                    value={dayjs(tenantDOB)}
+                    onChange={handleAddDOB}
+                    // maxDate={dayjs()}
                   />
                 </div>
               </div>
@@ -248,8 +271,7 @@ export const AddTenantToPropertyModal = ({
                     value={tenantUnitsToOccuppy}
                     placeholder=" Units to be Occupied"
                     onchange={setTenantUnitsToOccuppy}
-                    error={tenantsUnitsToOccupyNumberError}
-                    helperText="Enter a valid number"
+                    type={"number"}
                   />
                 </div>
               </div>
@@ -341,6 +363,7 @@ export const AddTenantToPropertyModal = ({
                     value={tenantSecurityDeposit}
                     placeholder="Security Depost"
                     onchange={setTenantSecurityDeposit}
+                    type={"number"}
                   />
                 </div>
               </div>
@@ -358,7 +381,7 @@ export const AddTenantToPropertyModal = ({
                   alignSelf: "center",
                   alignItems: "center",
                 }}
-                //   onClick={() => fileInputRef.current.click()}
+                onClick={() => fileInputRef.current.click()}
               >
                 <div
                   style={{
@@ -376,14 +399,23 @@ export const AddTenantToPropertyModal = ({
                 <div>
                   <input
                     type="file"
+                    accept=".jpg, .jpeg, .png, .gif, .txt, .pdf, .doc, .docx"
                     multiple
                     style={{ display: "none" }}
-                    //   ref={fileInputRef}
-                    //   onChange={handleFileChange}
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
                   />
                 </div>
               </div>
-
+              {/* display the names of the selected files */}
+              {uploadedFiles.map((item, key) => (
+                <div
+                  style={{ display: "flex", flexDirection: "row" }}
+                  key={key}
+                >
+                  <Typography>{item.name}</Typography>
+                </div>
+              ))}
               {/*  Dependants */}
 
               <Typography variant="h5">Dependants</Typography>
@@ -402,8 +434,7 @@ export const AddTenantToPropertyModal = ({
                     value={tenantDependents}
                     placeholder="Dependants"
                     onchange={setTenantDependents}
-                    error={tenantsDependentsNumberError}
-                    helperText="Enter a valid number"
+                    type={"number"}
                   />
                 </div>
               </div>

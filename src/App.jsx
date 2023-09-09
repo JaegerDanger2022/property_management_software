@@ -59,12 +59,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ flex: "0.25", maxWidth: "20%" }}>
+          <div style={{ flex: "0.2" }}>
             {" "}
             <MainSidebar />{" "}
           </div>
 
-          <div className="RoutesContainer">
+          <div style={{ flex: "0.8" }} className="RoutesContainer">
             <div className="Routes_ProfileAndSearchBar">
               <div style={{ float: "right" }}>
                 {" "}
