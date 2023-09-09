@@ -24,22 +24,6 @@ function PropertyTables() {
   // state to hold the all properties list
   const [propertyList, setPropertyList] = useState([]);
   useEffect(() => {
-    // get saved portfolio list from database
-    // const portfolioListRef = collection(db, `user_data/testUser/portfolio`);
-
-    // try {
-    //   const q = query(portfolioListRef, orderBy("dateAdded", "desc"));
-    //   const allDocs = onSnapshot(q, (snapshot) => {
-    //     const items = [];
-    //     snapshot.forEach((doc) => {
-    //       items.push({ ...doc.data() });
-    //       setsavedPortfolioList(items);
-    //     });
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
     // get saved properties from database
     const listRef = collection(db, `user_data/testUser/properties`);
 

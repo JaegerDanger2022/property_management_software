@@ -14,7 +14,16 @@ import {
 import { Alert, Button, Snackbar, Typography, useTheme } from "@mui/material";
 // import { AddTenantToPropertyModal } from "../modals/AddTenantToPropertyModal";
 // firebase
-import { doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../../../../app/utils/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../../app/utils/firebaseConfig";
@@ -28,6 +37,7 @@ import { Add, ArrowBackIos } from "@mui/icons-material";
 // router
 import { useNavigate } from "react-router";
 import dayjs from "dayjs";
+import { Box } from "@mui/system";
 
 function PropertyDetails({}) {
   // TEMPORAL OWNER ID -- USE A REAL ONE FOR PRODUCTION
@@ -91,6 +101,8 @@ function PropertyDetails({}) {
   //   number of dependants
   const [tenantDependents, setTenantDependents] = useState(0);
 
+  //   state to hold all tenants in the property
+  const [propertyTenants, setPropertyTenants] = useState([]);
   //   addTenant Modal handlers
   const [addTenantModalOpen, setAddTenantModalOpen] = useState(false);
   const handleTenantModalClose = () => {
@@ -123,6 +135,29 @@ function PropertyDetails({}) {
     tenantUnitsToOccuppy,
     tenantDependents,
   ]);
+
+  //   get all tenants useeffect
+  useEffect(() => {
+    // get saved properties from database
+    const listRef = collection(db, `/user_data/${ownerid}/tenants`);
+
+    try {
+      const q = query(
+        listRef,
+        where("propertyKey", "==", `${key}`),
+        orderBy("dateRegistered", "desc")
+      );
+      const allDocs = onSnapshot(q, (snapshot) => {
+        const items = [];
+        snapshot.forEach((doc) => {
+          items.push({ ...doc.data() });
+          setPropertyTenants(items);
+        });
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   //   function to sublit the tenant info
   const handleSubmitTenantInfo = async () => {
@@ -223,6 +258,7 @@ function PropertyDetails({}) {
           tenantLeaseAgreementUrl: tenantLeaseAgreementUrl,
           tenantUnitsToOccuppy: tenantUnitsToOccuppy,
           tenantDependents: tenantDependents,
+          dateRegistered: serverTimestamp(),
           propertyName: name,
           propertyKey: key,
         });
@@ -296,16 +332,15 @@ function PropertyDetails({}) {
             />
           ))}
         </div>
-        <div className="propertyDetailsAddTenant">
+        <div className="propertyTenants">
           <Typography sx={{ color: theme.palette.text.primary }} variant="h5">
             <strong> All Tenants</strong>
           </Typography>
-          <Button
-            variant="contained"
-            onClick={() => setAddTenantModalOpen(true)}
-          >
-            Add Tenant
-          </Button>
+          {propertyTenants.map((tenant, key) => (
+            <Box key={key}>
+              <Typography>{tenant.tenantFullName}</Typography>
+            </Box>
+          ))}
           <AddTenantToPropertyModal
             addTenantModalOpen={addTenantModalOpen}
             handleTenantModalClose={handleTenantModalClose}
