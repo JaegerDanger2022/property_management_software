@@ -30,8 +30,16 @@ import { useSelector } from "react-redux";
 import { db, storage } from "../../../app/utils/firebaseConfig";
 import { doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useForm } from "react-hook-form";
 
 function AddPropertyModal({}) {
+  // react-hook form config
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const theme = useTheme();
 
   const navigate = useNavigate();
@@ -104,8 +112,19 @@ function AddPropertyModal({}) {
   }, [numberOfUploads]);
 
   // handle submit
-  const handleAction = async () => {
+  // change the handleaction buttin to onSubmit and used react-hook forms for validataion and collecting of data from the textfields
+  const onSubmit = async (formData) => {
     console.log(numberOfUploads);
+
+    const { PropertyName, Address, NumberOfUnits, AvailableUnits } = formData;
+
+    console.log(
+      PropertyName,
+      Address,
+      NumberOfUnits,
+      AvailableUnits,
+      "Useform"
+    );
     // if (numberOfUploads < 1) {
 
     // } else {
@@ -113,10 +132,10 @@ function AddPropertyModal({}) {
     // }
     try {
       if (
-        name === "" ||
-        address === "" ||
-        numberOfUnits === 0 ||
-        availableUnits === 0 ||
+        PropertyName === "" ||
+        Address === "" ||
+        NumberOfUnits === 0 ||
+        AvailableUnits === 0 ||
         propertyType.length === 0 ||
         file.length === 0
       ) {
@@ -133,12 +152,12 @@ function AddPropertyModal({}) {
         );
 
         await setDoc(propertyRef, {
-          name: name,
-          address: address,
-          numberOfUnits: numberOfUnits,
-          availableUnits: availableUnits,
+          name: PropertyName,
+          address: Address,
+          numberOfUnits: NumberOfUnits,
+          availableUnits: AvailableUnits,
           propertyType: propertyType,
-          propertyImages: propertyImages,
+          propertyImages: fileName,
           key: randomDocName,
         });
 
@@ -172,37 +191,35 @@ function AddPropertyModal({}) {
     }
   };
   // function to upload images
-  const handleFileChange = async (event) => {
-    const selectedFiles = event.target.files;
-    const selectedFilesArray = [];
-    if (selectedFiles.length > 10) {
-      setMaximumPicturesAlert(true);
-    } else {
-      // for (let i = 0; i < selectedFiles.length; i++) {
-      //   const selectedFile = selectedFiles[i];
-      //   // upload the image to google storage
-      //   const profileImageRef = ref(
-      //     storage,
-      //     `buildingimages/test/${selectedFile.name}`
-      //   );
-      //   uploadBytes(profileImageRef, selectedFile).then((snapshot) => {
-      //     setUploadComplete(true);
-      //     // Get the download URL of the uploaded image -- read/write count 2
-      //     getDownloadURL(snapshot.ref).then((url) => {
-      //       // save image to be displayed
-      //       selectedFilesArray.push(url);
-      //     });
-      //   });
-      //   setIsLoading(false);
-      // }
-      // setImageDisplay(selectedFilesArray);
-      // setPropertyImages(selectedFilesArray);
-    }
-  };
+  // const handleFileChange = async (event) => {
+  //   const selectedFiles = event.target.files;
+  //   const selectedFilesArray = [];
+  //   if (selectedFiles.length > 10) {
+  //     setMaximumPicturesAlert(true);
+  //   } else {
+  //     // for (let i = 0; i < selectedFiles.length; i++) {
+  //     //   const selectedFile = selectedFiles[i];
+  //     //   // upload the image to google storage
+  //     //   const profileImageRef = ref(
+  //     //     storage,
+  //     //     `buildingimages/test/${selectedFile.name}`
+  //     //   );
+  //     //   uploadBytes(profileImageRef, selectedFile).then((snapshot) => {
+  //     //     setUploadComplete(true);
+  //     //     // Get the download URL of the uploaded image -- read/write count 2
+  //     //     getDownloadURL(snapshot.ref).then((url) => {
+  //     //       // save image to be displayed
+  //     //       selectedFilesArray.push(url);
+  //     //     });
+  //     //   });
+  //     //   setIsLoading(false);
+  //     // }
+  //     // setImageDisplay(selectedFilesArray);
+  //     // setPropertyImages(selectedFilesArray);
+  //   }
+  // };
 
   // Functions for dragging image to the upload image box
-
-  const [snackbarData, setSnackbarData] = useState(fileName);
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -288,6 +305,18 @@ function AddPropertyModal({}) {
     console.log("NNA", file, fileName);
   }, [file, fileName]);
 
+  useEffect(() => {
+    console.log(
+      "formInfo",
+      name,
+      address,
+      numberOfUnits,
+      availableUnits,
+      propertyType,
+      file
+    );
+  }, [name, address, numberOfUnits, availableUnits, propertyType, file]);
+
   return (
     <>
       <ActionButton
@@ -320,7 +349,9 @@ function AddPropertyModal({}) {
             </Box>
 
             <Box sx={{ flex: ".81", display: "flex" }}>
-              <div
+              {/* <form> */}{" "}
+              <form
+                onSubmit={handleSubmit(onSubmit)}
                 style={{
                   flex: ".5",
                   paddingTop: "1%",
@@ -336,20 +367,25 @@ function AddPropertyModal({}) {
                   id="outlined-basic"
                   label="Property Name"
                   variant="outlined"
+                  required
+                  {...register("PropertyName", { required: true })}
                   // value={name}
-                  onchange={(e) => setName(e.target.value)}
+                  // onchange={(e) => setName(e.target.value)}
                 />
                 <TextField
                   id="outlined-basic"
                   label="Address"
                   variant="outlined"
+                  required
+                  {...register("Address", { required: true })}
                   // value={address}
-                  onchange={(e) => setAddress(e.target.value)}
+                  // onchange={(e) => setAddress(e.target.value)}
                 />
 
                 <Select
                   sx={{ color: "black" }}
                   value={propertyType}
+                  required
                   onChange={(event) => {
                     setPropertyType([event.target.value]);
                   }}
@@ -383,36 +419,47 @@ function AddPropertyModal({}) {
                   id="outlined-basic"
                   label="Number of units"
                   variant="outlined"
+                  required
                   type="number"
+                  {...register("NumberOfUnits", { required: true })}
+
                   // value={numberOfUnits}
-                  onchange={(e) => {
-                    const numberOfUnits = Math.round(e.target.value);
-                    // Convert the rounded value to an integer.
-                    const numberOfUnitsInt = parseInt(numberOfUnits);
-                    setNumberOfUnits(numberOfUnitsInt);
-                    if (numberOfUnits === 0) {
-                      setNumberOfUnits("");
-                    }
-                  }}
+                  // onchange={(e) => {
+                  //   const numberOfUnits = Math.round(e.target.value);
+                  //   // Convert the rounded value to an integer.
+                  //   const numberOfUnitsInt = parseInt(numberOfUnits);
+                  //   setNumberOfUnits(numberOfUnitsInt);
+                  //   if (numberOfUnits === 0) {
+                  //     setNumberOfUnits("");
+                  //   }
+                  // }}
                 />
                 <TextField
                   label="Available units"
                   id="outlined-basic"
                   variant="outlined"
                   type="number"
-                  onchange={(e) => {
-                    const availableUnits = Math.round(e.target.value);
-                    // Convert the rounded value to an integer.
-                    const availableUnitsInt = parseInt(availableUnits);
-                    setAvailableUnits(availableUnitsInt);
-                    if (availableUnits === 0) {
-                      setAvailableUnits("");
-                    }
-                  }}
-                />
-                <ActionButton label="Submit" handleAction={handleAction} />
-              </div>
+                  required
+                  // required
+                  {...register("AvailableUnits", { required: true })}
 
+                  // onchange={(e) => {
+                  //   const availableUnits = Math.round(e.target.value);
+                  //   // Convert the rounded value to an integer.
+                  //   const availableUnitsInt = parseInt(availableUnits);
+                  //   setAvailableUnits(availableUnitsInt);
+                  //   if (availableUnits === 0) {
+                  //     setAvailableUnits("");
+                  //   }
+                  // }}
+                />
+                <ActionButton
+                  label="Submit"
+                  type="submit"
+                  // handleAction={handleAction}
+                />
+              </form>{" "}
+              {/* </form> */}
               <div style={{ flex: ".5", paddingLeft: "2%" }}>
                 <div
                   className="select-image"

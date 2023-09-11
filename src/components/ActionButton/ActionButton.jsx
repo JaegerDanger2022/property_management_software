@@ -1,7 +1,7 @@
 import { Button, useTheme } from "@mui/material";
 import React from "react";
 
-function ActionButton({ label, startIcon, endIcon, handleAction }) {
+function ActionButton({ label, startIcon, endIcon, handleAction, type }) {
   const theme = useTheme();
 
   return (
@@ -9,6 +9,7 @@ function ActionButton({ label, startIcon, endIcon, handleAction }) {
       variant="contained"
       onClick={handleAction}
       startIcon={startIcon}
+      type={type}
       endIcon={endIcon}
       sx={{ background: theme.palette.primary.button }}
     >
