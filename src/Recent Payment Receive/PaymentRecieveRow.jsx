@@ -18,7 +18,7 @@ function PaymentRecieveRow({
   return (
     <ListItem>
       <ListItemAvatar>
-        <Avatar>{tenantName}</Avatar>
+        <Avatar variant="rounded">{tenantName}</Avatar>
       </ListItemAvatar>
       <ListItemText
         primary={
@@ -31,13 +31,16 @@ function PaymentRecieveRow({
                 float: "right",
                 display: "flex",
                 alignItems: "center",
+                color: "#BBBDA4",
               }}
             >
               {/* END OF RECENT TENANT NAME OR HOUSE ADDRESS */}
 
               {/* THIS IS RECENT TENANT MONEY NOTE ICON */}
               <div>
-                <IconButton>{recentTenantIcon}</IconButton>
+                <IconButton sx={{ color: "red" }}>
+                  {recentTenantIcon}
+                </IconButton>
               </div>
               {/* END OF RECENT TENANT MONEY NOTE ICON */}
 

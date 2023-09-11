@@ -13,7 +13,14 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { Cancel, MoreVert, Recycling } from "@mui/icons-material";
+import {
+  Assessment,
+  Assignment,
+  Cancel,
+  Error,
+  MoreVert,
+  Recycling,
+} from "@mui/icons-material";
 import PaymentRecieveRow from "../../Recent Payment Receive/PaymentRecieveRow";
 
 const Dashboard = () => {
@@ -28,99 +35,77 @@ const Dashboard = () => {
         </h1>{" "}
       </div>
       {/* THIS CONTAIN RECENT PAYMENT RECEIVED HISTORY */}
+      {/* ===========================================================***Try**** */}
       <div className="commonPadding">
         {" "}
         <Card
-          className="recentPaymentReceive"
+          className="Leases"
           sx={{
-            backgroundColor: "#E3C9AE",
+            backgroundColor: "#FEECEC",
             height: "100%",
             width: "100%",
             borderRadius: "1dvw",
           }}
         >
-          {/* ==================================== */}
+          {/* ================================ */}
           <div>
-            <List sx={{ width: "100%", maxWidth: 752 }}>
-              <ListItem
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                {/* THIS IS RECENT PAYMENT RECEIVED HEADER */}
-                <div>Recent Payment Received</div>
-                {/* END OF RECENT PAYMENT RECEIVED HEADER */}
-
-                <div
-                  style={{
-                    display: "flex",
-                  }}
-                >
-                  {/* THIS IS RECENT PAYMENT RECEIVED ICON FOR RECYCLING */}
-                  <IconButton>
-                    {" "}
-                    <Recycling />{" "}
-                  </IconButton>
-                  {/* END OF RECENT PAYMENT RECEIVED ICON FOR RECYCLING */}
-
-                  {/* THIS IS RECENT PAYMENT RECEIVED ICON FOR MOREVERT */}
-                  <IconButton>
-                    {" "}
-                    <MoreVert />{" "}
-                  </IconButton>
-                  {/* END OF RECENT PAYMENT RECEIVED ICON FOR MOREVERT */}
-                </div>
-              </ListItem>
-              <Divider />
-            </List>
-          </div>
-          <div>
-            {/* THIS IS RECENT PAYMENT RECEIVE RENDERING PAGE*/}
-            <div>
-              <div className="PaymentReceivedScroll">
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
+            {/* =========================== */}
+            <div className="leasesOutstandingBalnce">
+              <div>Recent Payments Recieved</div>
+              <div>
+                <IconButton>
+                  <Recycling />
+                </IconButton>
+                <IconButton>
+                  <MoreVert />
+                </IconButton>{" "}
               </div>
             </div>
-            {/* END OF RECENT PAYMENT RECEIVE RENDERING PAGE*/}
+            <Divider />
+            {/* =========================== */}
           </div>
+
+          <div className="PaymentReceivedScroll">
+            <PaymentRecieveRow
+              amountReceived={"500,000"}
+              tenantName={<Assignment sx={{ color: "black" }} />}
+              recentTenantDate={"5 days ago"}
+              address={"Virginia Street"}
+              recentTenantIcon={"$"}
+            />
+            <PaymentRecieveRow
+              amountReceived={"500,000"}
+              tenantName={<Assignment sx={{ color: "black" }} />}
+              recentTenantDate={"5 days ago"}
+              address={"Virginia Street"}
+              recentTenantIcon={"$"}
+            />
+            <PaymentRecieveRow
+              amountReceived={"500,000"}
+              tenantName={<Assignment sx={{ color: "black" }} />}
+              recentTenantDate={"5 days ago"}
+              address={"Virginia Street"}
+              recentTenantIcon={"$"}
+            />
+            <PaymentRecieveRow
+              amountReceived={"500,000"}
+              tenantName={<Assignment sx={{ color: "black" }} />}
+              recentTenantDate={"5 days ago"}
+              address={"Virginia Street"}
+              recentTenantIcon={"$"}
+            />
+            <PaymentRecieveRow
+              amountReceived={"500,000"}
+              tenantName={<Assignment sx={{ color: "black" }} />}
+              recentTenantDate={"5 days ago"}
+              address={"Virginia Street"}
+              recentTenantIcon={"$"}
+            />
+          </div>
+          {/* =================================== */}
         </Card>
       </div>
+      {/* ===========================================================** End *Try**** */}
       {/* END OF RECENT PAYMENT RECEIVED HISTORY */}
       {/* THIS IS TOP VIEW PROPPERTY HISTORY */}
       <div className="commonPadding">
@@ -201,12 +186,26 @@ const Dashboard = () => {
             {/* =========================== */}
           </div>
 
-          <div>
+          <div className="PaymentReceivedScroll">
             <PaymentRecieveRow
               amountReceived={"500,000"}
-              tenantName={"jP"}
-              recentTenantDate={"5 days ago"}
-              address={"Virginia Street"}
+              tenantName={<Error />}
+              recentTenantDate={"705 virginia Lane"}
+              address={"Joana Rocks"}
+              recentTenantIcon={"$"}
+            />
+            <PaymentRecieveRow
+              amountReceived={"900,000"}
+              tenantName={<Error />}
+              recentTenantDate={"705 door Lane"}
+              address={"Kofi Rocks"}
+              recentTenantIcon={"$"}
+            />
+            <PaymentRecieveRow
+              amountReceived={"500,000"}
+              tenantName={<Error />}
+              recentTenantDate={"705 virginia Lane"}
+              address={"J Rocks"}
               recentTenantIcon={"$"}
             />
           </div>

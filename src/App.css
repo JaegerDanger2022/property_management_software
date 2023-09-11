@@ -139,10 +139,10 @@
 }
 .Leases div:nth-child(2) {
   grid-area: info;
-  /* background-color: rgb(161, 110, 110); */
-  /* overflow-y: scroll; */
 }
 .leasesOutstandingBalnce {
+  font-weight: 500;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -232,7 +232,42 @@
 .unitsContainer div:nth-child(3) {
   grid-area: nav;
   /* background-color: green; */
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: "header stats" "header stats";
 }
+.leftCards {
+  grid-area: header;
+  /* background-color: aqua; */
+}
+.rightCards {
+  grid-area: stats;
+  /* background-color: red; */
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: "firstcard secondcard" "fourthcard thirdcard";
+}
+.rightCards div:nth-child(1) {
+  grid-area: firstcard;
+  background: white;
+}
+.rightCards div:nth-child(2) {
+  grid-area: secondcard;
+  /* background: yellow; */
+}
+.rightCards div:nth-child(3) {
+  grid-area: thirdcard;
+  background: pink;
+}
+.rightCards div:nth-child(4) {
+  grid-area: fourthcard;
+  /* background: peru; */
+}
+
+/* ====== */
+
 .propertyHeader {
   display: flex;
   align-items: center;
@@ -241,6 +276,76 @@
 .color {
   color: aliceblue;
 }
+
+.unitsContainerII div:nth-child(1) {
+  grid-area: header;
+  /* background-color: yellow; */
+}
+.unitsContainerII div:nth-child(2) {
+  grid-area: stats;
+  /* background-color: violet; */
+}
+.listonCard {
+  position: fixed;
+  color: beige;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+.addLocation {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.displayColomn {
+  display: flex;
+  gap: 0.5rem;
+  background: aliceblue;
+  color: black;
+  border-radius: 10px;
+  width: 250px;
+  height: 6vh;
+}
+.lindaDoor {
+  display: flex;
+  align-items: center;
+}
+
+/* =======================The FOUR DIVS****===================== */
+.unitsCategories {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: "one two" "th fo";
+  height: 100%;
+}
+.unitsCategories div:nth-child(1) {
+  grid-area: one;
+  /* background-color: yellow; */
+  padding: 5% 5%;
+}
+.unitsCategories div:nth-child(2) {
+  grid-area: two;
+  /* background-color: rgb(48, 42, 48); */
+}
+.unitsCategories div:nth-child(3) {
+  grid-area: th;
+  /* background-color: blue; */
+}
+.unitsCategories div:nth-child(4) {
+  grid-area: fo;
+  /* background-color: brown; */
+}
+.leaseStatus {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-items: center;
+  place-content: center;
+}
+/* =========================**END OF FOUR DIVS*** */
 /* ===============**Chart Of Accounting***================= */
 .chartOfAccounting {
   display: flex;
@@ -302,3 +407,129 @@
   height: 2px;
   background-color: red;
 }
+/* =============================NavBar=========== */
+
+.nav-item {
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-item:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: black;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover:after {
+  transform: scaleX(1);
+}
+/* ========================**Tasks Table**** */
+.tasksPriority {
+  display: flex;
+  gap: 2rem;
+  font-size: 15px;
+}
+.tasksNumber {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  font-size: 15px;
+}
+.tasksPropertyLocation {
+  display: flex;
+  font-size: 15px;
+
+  align-items: center;
+  background: #f8c99f;
+  border-radius: 10px;
+}
+.tasks {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 15px;
+
+  justify-content: flex-start;
+}
+.tasksHouseName {
+  display: flex;
+  justify-content: flex-start;
+}
+.tasksUsers {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 15px;
+  justify-content: center;
+}
+.tasksUsersName {
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.tasksUsersDate {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  justify-content: center;
+}
+.dateAndTime {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 13px;
+}
+/* ================**Tenants */
+.tenants {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  gap: 0.5rem;
+}
+.futureTenants {
+  display: flex;
+  align-items: center;
+  /* gap: 0.1rem; */
+  justify-content: flex-start;
+}
+.tenantLocation {
+  display: flex;
+  align-items: center;
+}
+.tenantsPriority {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  font-size: 500;
+  font-size: 15px;
+}
+.tenantContact {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 13px;
+  color: red;
+  font-size: 15px;
+  font-size: 500;
+}
+.leaseAmount {
+  display: flex;
+  font-size: 15px;
+  font-size: 500;
+  align-items: center;
+}
+.leaseRent {
+  display: flex;
+  align-items: center;
+  font-size: 500;
+}
+/* ==================================== */
+/* In your CSS file or style tag */

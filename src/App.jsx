@@ -16,6 +16,9 @@ import AllTasks from "./components/PropertyScreenComponent/AllTasksScreenCompone
 import MyTasks from "./components/PropertyScreenComponent/MyTasks/MyTasks";
 import Reports from "./components/PropertyScreenComponent/ReportsScreenComponent/Reports";
 import ActualReports from "./components/PropertyScreenComponent/ReportsScreenComponent/ActualReports";
+import LeasesTable from "./components/Tables for All/LeasesTable/LeasesTable";
+import TasksTable from "./components/Tables for All/TasksTable/TasksTable";
+import RentTable from "./components/Tables for All/RentTable/RentTable";
 
 const theme = createTheme({
   palette: {
@@ -91,7 +94,7 @@ function App() {
                   path="Chart of Accounts"
                   element={<ChartOfAccounting />}
                 />
-                <Route path="Unit" element={<Units />} />
+                <Route path="Unit" element={<RentTable />} />
                 <Route path="Active Leases" element={<ActiveLeasing />} />
               </Routes>{" "}
             </div>
