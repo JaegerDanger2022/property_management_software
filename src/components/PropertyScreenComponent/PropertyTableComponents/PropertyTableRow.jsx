@@ -16,7 +16,7 @@ import {
   setPropertyDetailsKey,
   setPropertyDetailsName,
   setPropertyDetailsNumberOfUnits,
-} from "../../../app/features/propertyDetailsSlice";
+} from "../../../../app/features/propertyDetailsSlice";
 
 const PropertyTableRow = ({
   name,
@@ -56,7 +56,7 @@ const PropertyTableRow = ({
     await dispatch(setPropertyDetailsKey(key));
     await dispatch(setPropertyDetailsImages(images));
     // navigate to the details screen
-    navigate(`/propertyDetails/:${key}`);
+    navigate(`/propertyDetails/${key}`);
   };
   return (
     <tr

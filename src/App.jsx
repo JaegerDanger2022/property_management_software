@@ -10,6 +10,7 @@ import Dashboard from "./screens/Dashboard/Dashboard";
 import ProfileAndSearchBar from "./components/ProfileAndSearchBar/ProfileAndSearchBar";
 import Property from "./screens/Rentals/Property/Property";
 import PropertyDetails from "./screens/Rentals/Property/PropertyDetails";
+import PropertyMenuTab from "./components/Menu/SelectedPropertyMenuTab/PropertyMenuTab";
 
 const theme = createTheme({
   palette: {
@@ -81,6 +82,8 @@ function App() {
                   path="propertyDetails/:key"
                   element={<PropertyDetails />}
                 />
+
+                {/* <Route path="tab" element={<PropertyMenuTab />} /> */}
               </Routes>{" "}
             </div>
           </div>

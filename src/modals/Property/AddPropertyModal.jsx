@@ -13,7 +13,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { AddAPhoto } from "@mui/icons-material";
+import { Add, AddAPhoto } from "@mui/icons-material";
 // CUSTOM COMPONENTS
 import { CustomTextField } from "../../components/CustomTextField/CustomTextField";
 import ActionButton from "../../components/ActionButton/ActionButton";
@@ -29,14 +29,15 @@ import { db, storage } from "../../../app/utils/firebaseConfig";
 import { doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-function AddPropertyModal({
-  addPropertyOpen,
-  setAddPropertyOpen,
-  handleAddPropertyClose,
-}) {
+function AddPropertyModal({}) {
   const theme = useTheme();
 
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   // get userid
   // const userid = useSelector()
 
@@ -115,7 +116,9 @@ function AddPropertyModal({
       ) {
         setEmptyFieldsAlert(true);
       } else {
-        setAddPropertyOpen(false);
+        // setAddPropertyOpen(false);
+        //************* Note for Jaeger(Martin) ..SetAddPropertyOpen(false) is supposed to do but i presume it is to turn off so modal so i used the revised handleclose function which basically turns the modal state to false  ******************
+        handleClose();
 
         const propertyRef = doc(
           db,
@@ -175,286 +178,294 @@ function AddPropertyModal({
   };
 
   return (
-    <Modal
-      sx={{ display: "grid", placeContent: "center" }}
-      open={addPropertyOpen}
-      onClose={handleAddPropertyClose}
-    >
-      <Fade in={addPropertyOpen}>
-        <Box
-          className="ModalBox"
-          sx={{
-            width: "70dvw",
-            backgroundColor: theme.palette.background.paper,
-          }}
-        >
-          <Typography variant="h5">Property Types</Typography>
+    <>
+      <ActionButton
+        label={"Add Property"}
+        startIcon={<Add />}
+        handleAction={handleOpen}
+      />
 
+      <Modal
+        sx={{ display: "grid", placeContent: "center" }}
+        open={open}
+        onClose={handleClose}
+      >
+        <Fade in={open}>
           <Box
-            style={{
-              display: "grid",
-              // gridTemplateColumns: "repeat(2, 1fr)",
-              color: theme.palette.text.primary,
-              // alignItems: "center",
+            className="ModalBox"
+            sx={{
+              width: "70dvw",
+              backgroundColor: theme.palette.background.paper,
             }}
           >
-            {/* Left column to get information */}
+            <Typography variant="h5">Property Types</Typography>
+
             <Box
               style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                gap: "1dvh",
+                display: "grid",
+                // gridTemplateColumns: "repeat(2, 1fr)",
+                color: theme.palette.text.primary,
+                // alignItems: "center",
               }}
             >
-              {/* name */}
-              <div
-                className="item"
+              {/* Left column to get information */}
+              <Box
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                }}
-              >
-                <div className="label">
-                  <Typography variant="body1">Name</Typography>
-                </div>
-                <div className="input-field">
-                  <CustomTextField
-                    autoFocus={true}
-                    value={name}
-                    placeholder="Name"
-                    onchange={(e) => setName(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              {/* Address */}
-              <div
-                className="item"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                }}
-              >
-                <div className="label">
-                  <Typography variant="body1">Address</Typography>
-                </div>
-                <div className="input-field">
-                  <CustomTextField
-                    value={address}
-                    placeholder="Address"
-                    onchange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
-              </div>
-              {/* Property Type */}
-              <div
-                className="item"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                }}
-              >
-                <div className="label">
-                  <Typography variant="body1">Property Type</Typography>
-                </div>
-                <div className="input-field">
-                  <Select
-                    sx={{ width: "20vw" }}
-                    value={propertyType}
-                    onChange={(event) => {
-                      setPropertyType([event.target.value]);
-                    }}
-                    label="Property Type"
-                  >
-                    {properties.map((item, key) => {
-                      if (item.header === true) {
-                        return (
-                          <ListSubheader
-                            key={key}
-                            sx={{
-                              fontWeight: "bold",
-                              backgroundColor: "#686868",
-                              color: "white",
-                            }}
-                          >
-                            {item.label}
-                          </ListSubheader>
-                        );
-                      } else {
-                        return (
-                          <MenuItem key={key} value={item.label}>
-                            {item.label}
-                          </MenuItem>
-                        );
-                      }
-                    })}
-                  </Select>
-                </div>
-              </div>
-              {/*Total  Number of units */}
-              <div
-                className="item"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr",
-                }}
-              >
-                <div className="label">
-                  <Typography variant="body1">Units</Typography>
-                </div>
-                <div className="input-field">
-                  <CustomTextField
-                    value={numberOfUnits}
-                    placeholder="Units"
-                    onchange={(e) => {
-                      const numberOfUnits = Math.round(e.target.value);
-                      // Convert the rounded value to an integer.
-                      const numberOfUnitsInt = parseInt(numberOfUnits);
-                      setNumberOfUnits(numberOfUnitsInt);
-                      if (numberOfUnits === 0) {
-                        setNumberOfUnits("");
-                      }
-                    }}
-                    onFocus={() => setNumberOfUnits("")}
-                    type="number"
-                  />
-                </div>
-              </div>
-              {/*Available of units */}
-              <div
-                className="item"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr",
-                }}
-              >
-                <div className="label">
-                  <Typography variant="body1">Available Units</Typography>
-                </div>
-                <div className="input-field">
-                  <CustomTextField
-                    value={availableUnits}
-                    placeholder="Units"
-                    onchange={(e) => {
-                      const availableUnits = Math.round(e.target.value);
-                      // Convert the rounded value to an integer.
-                      const availableUnitsInt = parseInt(availableUnits);
-                      setAvailableUnits(availableUnitsInt);
-                      if (availableUnits === 0) {
-                        setAvailableUnits("");
-                      }
-                    }}
-                    onFocus={() => setAvailableUnits("")}
-                    type="number"
-                  />
-                </div>
-              </div>
-              {/* Select Images */}
-              <div
-                className="select-image"
-                style={{
-                  border: "2px dotted",
-                  borderColor: theme.palette.primary.main,
-                  width: "20dvw",
-                  height: "10dvh",
                   display: "flex",
+                  flexDirection: "column",
                   justifyContent: "center",
-                  alignSelf: "center",
-                  alignItems: "center",
+                  gap: "1dvh",
                 }}
-                onClick={() => fileInputRef.current.click()}
               >
+                {/* name */}
                 <div
+                  className="item"
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyItems: "baseline",
-                    gap: 10,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
                   }}
                 >
-                  <AddAPhoto />
-                  <Typography>Select Images</Typography>
+                  <div className="label">
+                    <Typography variant="body1">Name</Typography>
+                  </div>
+                  <div className="input-field">
+                    <CustomTextField
+                      autoFocus={true}
+                      value={name}
+                      placeholder="Name"
+                      onchange={(e) => setName(e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                {/* ref input */}
-                <div>
-                  <input
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    multiple
-                    style={{ display: "none" }}
-                    ref={fileInputRef}
-                    onChange={handleFileChange}
-                  />
+                {/* Address */}
+                <div
+                  className="item"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                  }}
+                >
+                  <div className="label">
+                    <Typography variant="body1">Address</Typography>
+                  </div>
+                  <div className="input-field">
+                    <CustomTextField
+                      value={address}
+                      placeholder="Address"
+                      onchange={(e) => setAddress(e.target.value)}
+                    />
+                  </div>
                 </div>
-              </div>
+                {/* Property Type */}
+                <div
+                  className="item"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                  }}
+                >
+                  <div className="label">
+                    <Typography variant="body1">Property Type</Typography>
+                  </div>
+                  <div className="input-field">
+                    <Select
+                      sx={{ width: "20vw" }}
+                      value={propertyType}
+                      onChange={(event) => {
+                        setPropertyType([event.target.value]);
+                      }}
+                      label="Property Type"
+                    >
+                      {properties.map((item, key) => {
+                        if (item.header === true) {
+                          return (
+                            <ListSubheader
+                              key={key}
+                              sx={{
+                                fontWeight: "bold",
+                                backgroundColor: "#686868",
+                                color: "white",
+                              }}
+                            >
+                              {item.label}
+                            </ListSubheader>
+                          );
+                        } else {
+                          return (
+                            <MenuItem key={key} value={item.label}>
+                              {item.label}
+                            </MenuItem>
+                          );
+                        }
+                      })}
+                    </Select>
+                  </div>
+                </div>
+                {/*Total  Number of units */}
+                <div
+                  className="item"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr",
+                  }}
+                >
+                  <div className="label">
+                    <Typography variant="body1">Units</Typography>
+                  </div>
+                  <div className="input-field">
+                    <CustomTextField
+                      value={numberOfUnits}
+                      placeholder="Units"
+                      onchange={(e) => {
+                        const numberOfUnits = Math.round(e.target.value);
+                        // Convert the rounded value to an integer.
+                        const numberOfUnitsInt = parseInt(numberOfUnits);
+                        setNumberOfUnits(numberOfUnitsInt);
+                        if (numberOfUnits === 0) {
+                          setNumberOfUnits("");
+                        }
+                      }}
+                      onFocus={() => setNumberOfUnits("")}
+                      type="number"
+                    />
+                  </div>
+                </div>
+                {/*Available of units */}
+                <div
+                  className="item"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr",
+                  }}
+                >
+                  <div className="label">
+                    <Typography variant="body1">Available Units</Typography>
+                  </div>
+                  <div className="input-field">
+                    <CustomTextField
+                      value={availableUnits}
+                      placeholder="Units"
+                      onchange={(e) => {
+                        const availableUnits = Math.round(e.target.value);
+                        // Convert the rounded value to an integer.
+                        const availableUnitsInt = parseInt(availableUnits);
+                        setAvailableUnits(availableUnitsInt);
+                        if (availableUnits === 0) {
+                          setAvailableUnits("");
+                        }
+                      }}
+                      onFocus={() => setAvailableUnits("")}
+                      type="number"
+                    />
+                  </div>
+                </div>
+                {/* Select Images */}
+                <div
+                  className="select-image"
+                  style={{
+                    border: "2px dotted",
+                    borderColor: theme.palette.primary.main,
+                    width: "20dvw",
+                    height: "10dvh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignSelf: "center",
+                    alignItems: "center",
+                  }}
+                  onClick={() => fileInputRef.current.click()}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyItems: "baseline",
+                      gap: 10,
+                    }}
+                  >
+                    <AddAPhoto />
+                    <Typography>Select Images</Typography>
+                  </div>
 
-              {/* upload complete alert */}
+                  {/* ref input */}
+                  <div>
+                    <input
+                      type="file"
+                      accept=".jpg, .jpeg, .png"
+                      multiple
+                      style={{ display: "none" }}
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                </div>
 
-              <Snackbar
-                open={uploadComplete}
-                autoHideDuration={6000}
-                onClose={handleCloseUploadComplete}
-              >
-                <Alert severity="success">Uploaded</Alert>
-              </Snackbar>
+                {/* upload complete alert */}
 
-              {/* empty fields alert */}
-              <Snackbar
-                open={emptyFieldsAlert}
-                autoHideDuration={6000}
-                onClose={handleEmptyAlertClose}
+                <Snackbar
+                  open={uploadComplete}
+                  autoHideDuration={6000}
+                  onClose={handleCloseUploadComplete}
+                >
+                  <Alert severity="success">Uploaded</Alert>
+                </Snackbar>
+
+                {/* empty fields alert */}
+                <Snackbar
+                  open={emptyFieldsAlert}
+                  autoHideDuration={6000}
+                  onClose={handleEmptyAlertClose}
+                >
+                  <Alert severity="error">All fields are required</Alert>
+                </Snackbar>
+                {/* maximum pictures alert */}
+                <Snackbar
+                  open={maximumPicturesAlert}
+                  autoHideDuration={6000}
+                  onClose={handleMaximumPicturesAlert}
+                >
+                  <Alert severity="error">Only 10 images are allowed</Alert>
+                </Snackbar>
+              </Box>
+              {/* Right column to get information */}
+              <Box
+                className="results"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "5vh",
+                }}
               >
-                <Alert severity="error">All fields are required</Alert>
-              </Snackbar>
-              {/* maximum pictures alert */}
-              <Snackbar
-                open={maximumPicturesAlert}
-                autoHideDuration={6000}
-                onClose={handleMaximumPicturesAlert}
-              >
-                <Alert severity="error">Only 10 images are allowed</Alert>
-              </Snackbar>
+                <Typography>Name: {name}</Typography>
+                <Typography>Address: {address}</Typography>
+                <Typography>Property Type: {propertyType}</Typography>
+                <Typography>Total number of Units: {numberOfUnits}</Typography>
+                <Typography>Available Units: {availableUnits}</Typography>
+
+                <Typography>Pictures:</Typography>
+
+                {isLoading && <Typography variant="h1">LOADING</Typography>}
+                <div style={{ display: "flex", gap: "1vw" }}>
+                  {imageDisplay.map((item) => (
+                    <SelectedImages item={item} />
+                  ))}
+                </div>
+              </Box>
+              {/* submit button */}
             </Box>
-            {/* Right column to get information */}
             <Box
-              className="results"
               style={{
                 display: "flex",
-                flexDirection: "column",
-                gap: "5vh",
+                justifyContent: "center",
+                paddingTop: "10vh",
               }}
             >
-              <Typography>Name: {name}</Typography>
-              <Typography>Address: {address}</Typography>
-              <Typography>Property Type: {propertyType}</Typography>
-              <Typography>Total number of Units: {numberOfUnits}</Typography>
-              <Typography>Available Units: {availableUnits}</Typography>
-
-              <Typography>Pictures:</Typography>
-
-              {isLoading && <Typography variant="h1">LOADING</Typography>}
-              <div style={{ display: "flex", gap: "1vw" }}>
-                {imageDisplay.map((item) => (
-                  <SelectedImages item={item} />
-                ))}
-              </div>
+              <ActionButton label="Submit" handleAction={handleAction} />
             </Box>
-            {/* submit button */}
           </Box>
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              paddingTop: "10vh",
-            }}
-          >
-            <ActionButton label="Submit" handleAction={handleAction} />
-          </Box>
-        </Box>
-      </Fade>
-    </Modal>
+        </Fade>
+      </Modal>
+    </>
   );
 }
 
