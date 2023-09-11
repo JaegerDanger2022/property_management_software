@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../../App.css";
+import "../../../App.css";
 import PropertyTableRow from "./PropertyTableRow";
 // firebase
-import { db } from "../../../app/utils/firebaseConfig";
+import { db } from "../../../../app/utils/firebaseConfig";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 function PropertyTables() {
   // styles

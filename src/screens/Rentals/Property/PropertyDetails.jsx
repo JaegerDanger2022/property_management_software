@@ -35,9 +35,10 @@ import ActionButton from "../../../components/ActionButton/ActionButton";
 import { AddTenantToPropertyModal } from "../../../modals/AddTenant/AddTenantToPropertyModal";
 import { Add, ArrowBackIos } from "@mui/icons-material";
 // router
-import { useNavigate } from "react-router";
+import { Route, useNavigate, Routes } from "react-router";
 import dayjs from "dayjs";
 import { Box } from "@mui/system";
+import PropertyMenuTab from "../../../components/Menu/SelectedPropertyMenuTab/PropertyMenuTab";
 
 function PropertyDetails({}) {
   // TEMPORAL OWNER ID -- USE A REAL ONE FOR PRODUCTION
@@ -54,6 +55,8 @@ function PropertyDetails({}) {
   const key = useSelector(property_key);
   const date_added = useSelector(property_date_added);
   const images = useSelector(property_images);
+  // destructuring 2 images from images ..
+  const [image1, image2] = images;
 
   //   alert state
   //   allFieldsRequiredAlert
@@ -103,11 +106,6 @@ function PropertyDetails({}) {
 
   //   state to hold all tenants in the property
   const [propertyTenants, setPropertyTenants] = useState([]);
-  //   addTenant Modal handlers
-  const [addTenantModalOpen, setAddTenantModalOpen] = useState(false);
-  const handleTenantModalClose = () => {
-    setAddTenantModalOpen(false);
-  };
 
   // validations useeffect
   useEffect(() => {
@@ -268,136 +266,120 @@ function PropertyDetails({}) {
     }
   };
 
+  // Menu Labels as an array
+  const menuLabelArray = [
+    "Overview",
+    "Tasks",
+    "Tenants",
+    "Leases",
+    "Units",
+    "Notes",
+    "Files",
+  ];
+
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       {/* add tenant button */}
-      <div>
+      <div style={{ flex: "0.15" }}>
         <div
           style={{ display: "flex", justifyContent: "flex-start" }}
           onClick={() => navigate(-1)}
         >
           <ArrowBackIos />
         </div>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <ActionButton
-            label={"Add Tenant"}
-            startIcon={<Add />}
-            handleAction={() => setAddTenantModalOpen(true)}
-          />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            // backgroundColor: "red",
+          }}
+        >
+          <div style={{ flex: ".8" }}>
+            {" "}
+            <span
+              style={{
+                fontSize: "1.5em",
+                fontWeight: "600",
+                // lineHeight: "1",
+              }}
+            >
+              {" "}
+              {name} &nbsp;
+              <span style={{ fontSize: ".7em" }}>{address}</span>
+            </span>{" "}
+          </div>
+          <div style={{ flex: ".2" }}>
+            <AddTenantToPropertyModal
+              // addTenantModalOpen={addTenantModalOpen}
+              // handleTenantModalClose={handleTenantModalClose}
+              handleSubmitTenantInfo={handleSubmitTenantInfo}
+              tenantFullName={tenantFullName}
+              setTenantFullName={(e) => {
+                setTenantFullName(e.target.value);
+              }}
+              tenantDOB={tenantDOB}
+              // setTenantDOB={(e) => setTenantDOB(e.target.value)}
+              handleAddDOB={handleAddDOB}
+              tenantAddress={tenantAddress}
+              setTenantAddress={(e) => setTenantAddress(e.target.value)}
+              tenantPhoneNumber={tenantPhoneNumber}
+              setTenantPhoneNumber={(e) => setTenantPhoneNumber(e.target.value)}
+              tenantECName={tenantECName}
+              setTenantECName={(e) => setTenantECName(e.target.value)}
+              tenantECRelationship={tenantECRelationship}
+              setTenantECRelationship={(e) =>
+                setTenantECRelationship(e.target.value)
+              }
+              tenantECPhoneNumber={tenantECPhoneNumber}
+              setTenantECPhoneNumber={(e) =>
+                setTenantECPhoneNumber(e.target.value)
+              }
+              tenantOccupation={tenantOccupation}
+              setTenantOccupation={(e) => setTenantOccupation(e.target.value)}
+              tenantPlaceOfWork={tenantPlaceOfWork}
+              setTenantPlaceOfWork={(e) => setTenantPlaceOfWork(e.target.value)}
+              tenantAccountInfo={tenantAccountInfo}
+              setTenantAccountInfo={(e) => setTenantAccountInfo(e.target.value)}
+              tenantSecurityDeposit={tenantSecurityDeposit}
+              setTenantSecurityDeposit={(e) =>
+                setTenantSecurityDeposit(parseInt(e.target.value))
+              }
+              tenantUnitsToOccuppy={tenantUnitsToOccuppy}
+              setTenantUnitsToOccuppy={(e) =>
+                setTenantUnitsToOccuppy(parseInt(e.target.value))
+              }
+              tenantDependents={tenantDependents}
+              setTenantDependents={(e) =>
+                setTenantDependents(parseInt(e.target.value))
+              }
+              tenantPhoneNumberError={tenantPhoneNumberError}
+              tenantECPhoneNumberError={tenantECPhoneNumberError}
+              // lease agreement file props
+              setSelectedFiles={setSelectedFiles}
+            />
+          </div>
         </div>
       </div>
+
       <div
-        className="propertyDetailsScreen"
-        style={{ display: "grid", gridTemplateColumns: "9fr 3fr" }}
+        style={{
+          // backgroundColor: "red",
+          flex: "0.85",
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
-        <div className="propertyDetails">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "2vw",
-            }}
-          >
-            <Typography
-              sx={{ color: theme.palette.text.primary, fontSize: "1.3rem" }}
-            >
-              <strong>Property name:</strong>
-              {name}
-            </Typography>
-            <Typography
-              sx={{ color: theme.palette.text.primary, fontSize: "1.3rem" }}
-            >
-              <strong>Property Address:</strong>
-              {address}
-            </Typography>
-            <Typography
-              sx={{ color: theme.palette.text.primary, fontSize: "1.3rem" }}
-            >
-              <strong>Number of Units:</strong>
-              {numberOfUnits}
-            </Typography>
-            <Typography
-              sx={{ color: theme.palette.text.primary, fontSize: "1.3rem" }}
-            >
-              <strong>Available Units:</strong>
-              {availableUnits}
-            </Typography>
-          </div>
-          {/* display the others */}
-          {images.map((imageSrc) => (
-            <img
-              key={imageSrc}
-              src={imageSrc}
-              style={{ width: "30dvw", height: "30dvh", padding: "1dvw" }}
-            />
-          ))}
-        </div>
-        <div className="propertyTenants">
-          <Typography sx={{ color: theme.palette.text.primary }} variant="h5">
-            <strong> All Tenants</strong>
-          </Typography>
-          {propertyTenants.map((tenant, key) => (
-            <Box key={key}>
-              <Typography>{tenant.tenantFullName}</Typography>
-            </Box>
-          ))}
-          <AddTenantToPropertyModal
-            addTenantModalOpen={addTenantModalOpen}
-            handleTenantModalClose={handleTenantModalClose}
-            handleSubmitTenantInfo={handleSubmitTenantInfo}
-            tenantFullName={tenantFullName}
-            setTenantFullName={(e) => {
-              setTenantFullName(e.target.value);
-            }}
-            tenantDOB={tenantDOB}
-            // setTenantDOB={(e) => setTenantDOB(e.target.value)}
-            handleAddDOB={handleAddDOB}
-            tenantAddress={tenantAddress}
-            setTenantAddress={(e) => setTenantAddress(e.target.value)}
-            tenantPhoneNumber={tenantPhoneNumber}
-            setTenantPhoneNumber={(e) => setTenantPhoneNumber(e.target.value)}
-            tenantECName={tenantECName}
-            setTenantECName={(e) => setTenantECName(e.target.value)}
-            tenantECRelationship={tenantECRelationship}
-            setTenantECRelationship={(e) =>
-              setTenantECRelationship(e.target.value)
-            }
-            tenantECPhoneNumber={tenantECPhoneNumber}
-            setTenantECPhoneNumber={(e) =>
-              setTenantECPhoneNumber(e.target.value)
-            }
-            tenantOccupation={tenantOccupation}
-            setTenantOccupation={(e) => setTenantOccupation(e.target.value)}
-            tenantPlaceOfWork={tenantPlaceOfWork}
-            setTenantPlaceOfWork={(e) => setTenantPlaceOfWork(e.target.value)}
-            tenantAccountInfo={tenantAccountInfo}
-            setTenantAccountInfo={(e) => setTenantAccountInfo(e.target.value)}
-            tenantSecurityDeposit={tenantSecurityDeposit}
-            setTenantSecurityDeposit={(e) =>
-              setTenantSecurityDeposit(parseInt(e.target.value))
-            }
-            tenantUnitsToOccuppy={tenantUnitsToOccuppy}
-            setTenantUnitsToOccuppy={(e) =>
-              setTenantUnitsToOccuppy(parseInt(e.target.value))
-            }
-            tenantDependents={tenantDependents}
-            setTenantDependents={(e) =>
-              setTenantDependents(parseInt(e.target.value))
-            }
-            tenantPhoneNumberError={tenantPhoneNumberError}
-            tenantECPhoneNumberError={tenantECPhoneNumberError}
-            // lease agreement file props
-            setSelectedFiles={setSelectedFiles}
+        <div style={{ flex: "1" }}>
+          {/* <PropertyMenuTab /> */}
+          <PropertyMenuTab
+            PropertyTabItemsArray={menuLabelArray}
+            //Props for overview menu
+            totalUnits={numberOfUnits}
+            activeUnits={availableUnits}
+            propertyImage1={image1}
+            propertyImage2={image2}
           />
         </div>
-        {/* all fields required alert */}
-        <Snackbar
-          open={allFieldsRequiredAlert}
-          autoHideDuration={6000}
-          onClose={handleCloseAllFieldsRequiredAlert}
-        >
-          <Alert severity="error">All fields are required</Alert>
-        </Snackbar>
       </div>
     </div>
   );
