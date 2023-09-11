@@ -5,15 +5,17 @@ import {
   Alert,
   Box,
   Fade,
+  IconButton,
   ListSubheader,
   MenuItem,
   Modal,
   Select,
   Snackbar,
+  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
-import { Add, AddAPhoto } from "@mui/icons-material";
+import { Add, AddAPhoto, Close } from "@mui/icons-material";
 // CUSTOM COMPONENTS
 import { CustomTextField } from "../../components/CustomTextField/CustomTextField";
 import ActionButton from "../../components/ActionButton/ActionButton";
@@ -46,6 +48,10 @@ function AddPropertyModal({}) {
   const [numberOfUnits, setNumberOfUnits] = useState(0);
   const [availableUnits, setAvailableUnits] = useState(0);
   const [propertyType, setPropertyType] = useState([]);
+
+  // Images States
+  const [fileName, setFileName] = useState([]);
+  const [file, setFile] = useState([]);
 
   //image display state
   const [imageDisplay, setImageDisplay] = useState([]);
@@ -112,7 +118,7 @@ function AddPropertyModal({}) {
         numberOfUnits === 0 ||
         availableUnits === 0 ||
         propertyType.length === 0 ||
-        propertyImages.length === 0
+        file.length === 0
       ) {
         setEmptyFieldsAlert(true);
       } else {
@@ -136,6 +142,25 @@ function AddPropertyModal({}) {
           key: randomDocName,
         });
 
+        // uploadFiles Here
+        for (let i = 0; i < file.length; i++) {
+          const selectedFile = file[i];
+          // upload the image to google storage
+          const profileImageRef = ref(
+            storage,
+            `buildingimages/test/${selectedFile.name}`
+          );
+          uploadBytes(profileImageRef, selectedFile).then((snapshot) => {
+            setUploadComplete(true);
+            // Get the download URL of the uploaded image -- read/write count 2
+            getDownloadURL(snapshot.ref).then((url) => {
+              // save image to be displayed
+              file.push(url);
+            });
+          });
+          setIsLoading(false);
+        }
+
         // update the numberOfUploads field
         const numberOfUploadsRef = doc(db, `user_data`, `testUser`);
         await updateDoc(numberOfUploadsRef, {
@@ -153,29 +178,115 @@ function AddPropertyModal({}) {
     if (selectedFiles.length > 10) {
       setMaximumPicturesAlert(true);
     } else {
-      for (let i = 0; i < selectedFiles.length; i++) {
-        const selectedFile = selectedFiles[i];
-
-        // upload the image to google storage
-        const profileImageRef = ref(
-          storage,
-          `buildingimages/test/${selectedFile.name}`
-        );
-
-        uploadBytes(profileImageRef, selectedFile).then((snapshot) => {
-          setUploadComplete(true);
-          // Get the download URL of the uploaded image -- read/write count 2
-          getDownloadURL(snapshot.ref).then((url) => {
-            // save image to be displayed
-            selectedFilesArray.push(url);
-          });
-        });
-        setIsLoading(false);
-      }
-      setImageDisplay(selectedFilesArray);
-      setPropertyImages(selectedFilesArray);
+      // for (let i = 0; i < selectedFiles.length; i++) {
+      //   const selectedFile = selectedFiles[i];
+      //   // upload the image to google storage
+      //   const profileImageRef = ref(
+      //     storage,
+      //     `buildingimages/test/${selectedFile.name}`
+      //   );
+      //   uploadBytes(profileImageRef, selectedFile).then((snapshot) => {
+      //     setUploadComplete(true);
+      //     // Get the download URL of the uploaded image -- read/write count 2
+      //     getDownloadURL(snapshot.ref).then((url) => {
+      //       // save image to be displayed
+      //       selectedFilesArray.push(url);
+      //     });
+      //   });
+      //   setIsLoading(false);
+      // }
+      // setImageDisplay(selectedFilesArray);
+      // setPropertyImages(selectedFilesArray);
     }
   };
+
+  // Functions for dragging image to the upload image box
+
+  const [snackbarData, setSnackbarData] = useState(fileName);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+
+    const files = e.dataTransfer.files;
+    setFile([...file, ...files], "files");
+    const fileNames = [];
+
+    if (file.length > 10) {
+      setMaximumPicturesAlert(true);
+    } else {
+      for (let i = 0; i < files.length; i++) {
+        // Getting a new id for each file
+        // const fileId = v4();
+        fileNames.push({
+          name: files[i].name,
+          size: files[i].size,
+          // fileId: fileId,
+          lastModified: files[i].lastModified,
+          description: "",
+          url: URL.createObjectURL(files[i]),
+        });
+      }
+
+      // setFile([...file, ...files], "files");
+      setFileName([...fileName, ...fileNames], "names");
+      console.log(fileName, "Names", file);
+    }
+  };
+
+  // DELETE Image selected
+  const handleRemoveImageSelected = (index) => {
+    const updatedFiles = [...file];
+    updatedFiles.splice(index, 1);
+    setFile(updatedFiles);
+
+    const updatedFileNames = [...fileName];
+    updatedFileNames.splice(index, 1);
+    setFileName(updatedFileNames);
+    console.log(file, "left");
+  };
+
+  const handleFileSelect = async (event) => {
+    const files = event.target.files;
+    const fileNames = [];
+    console.log(files[0].name);
+    await setFile([...file, ...files], "files");
+
+    console.log(files, "SElECTEDF", file);
+
+    // I have to FIX THIS validation to optimize it use when the 10 files are not selected ata t time
+    if (file.length > 10 || files.length >= 9) {
+      setMaximumPicturesAlert(true);
+      // if (file.length < 10) {
+      //   ("Do nothing");
+      // } else {
+      //   setFile([]);
+      // }
+    } else {
+      for (let i = 0; i < files.length; i++) {
+        // const fileId = v4();
+        fileNames.push({
+          name: files[i].name,
+          size: files[i].size,
+          // fileId: fileId,
+          lastModified: files[i]["lastModified"],
+          description: "",
+          url: URL.createObjectURL(files[i]),
+        });
+      }
+
+      // setFile([...file, ...files], "files");
+      setFileName([...fileName, ...fileNames], "names");
+      console.log(fileName, "Names", file);
+    }
+  };
+
+  useEffect(() => {
+    console.log("NNA", file, fileName);
+  }, [file, fileName]);
 
   return (
     <>
@@ -194,173 +305,115 @@ function AddPropertyModal({}) {
           <Box
             className="ModalBox"
             sx={{
-              width: "70dvw",
+              width: "50dvw",
+              minHeight: "85vh",
+              borderRadius: "1%",
+              padding: "2.5% 4% 2.5% 4%",
               backgroundColor: theme.palette.background.paper,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Typography variant="h5">Property Types</Typography>
+            <Box sx={{ flex: ".19" }}>
+              {" "}
+              <h1>Add a property</h1>{" "}
+            </Box>
 
-            <Box
-              style={{
-                display: "grid",
-                // gridTemplateColumns: "repeat(2, 1fr)",
-                color: theme.palette.text.primary,
-                // alignItems: "center",
-              }}
-            >
-              {/* Left column to get information */}
-              <Box
+            <Box sx={{ flex: ".81", display: "flex" }}>
+              <div
                 style={{
+                  flex: ".5",
+                  paddingTop: "1%",
+                  paddingBottom: "1%",
+                  // paddingRight: "1%",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
-                  gap: "1dvh",
+                  gap: "5%",
                 }}
               >
-                {/* name */}
-                <div
-                  className="item"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
-                  }}
-                >
-                  <div className="label">
-                    <Typography variant="body1">Name</Typography>
-                  </div>
-                  <div className="input-field">
-                    <CustomTextField
-                      autoFocus={true}
-                      value={name}
-                      placeholder="Name"
-                      onchange={(e) => setName(e.target.value)}
-                    />
-                  </div>
-                </div>
+                {/* Form */}
+                <TextField
+                  id="outlined-basic"
+                  label="Property Name"
+                  variant="outlined"
+                  // value={name}
+                  onchange={(e) => setName(e.target.value)}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Address"
+                  variant="outlined"
+                  // value={address}
+                  onchange={(e) => setAddress(e.target.value)}
+                />
 
-                {/* Address */}
-                <div
-                  className="item"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
+                <Select
+                  sx={{ color: "black" }}
+                  value={propertyType}
+                  onChange={(event) => {
+                    setPropertyType([event.target.value]);
                   }}
+                  label="Property Type"
                 >
-                  <div className="label">
-                    <Typography variant="body1">Address</Typography>
-                  </div>
-                  <div className="input-field">
-                    <CustomTextField
-                      value={address}
-                      placeholder="Address"
-                      onchange={(e) => setAddress(e.target.value)}
-                    />
-                  </div>
-                </div>
-                {/* Property Type */}
-                <div
-                  className="item"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
+                  {properties.map((item, key) => {
+                    if (item.header === true) {
+                      return (
+                        <ListSubheader
+                          key={key}
+                          sx={{
+                            fontWeight: "bold",
+                            backgroundColor: "#686868",
+                            // color: "white",
+                          }}
+                        >
+                          {item.label}
+                        </ListSubheader>
+                      );
+                    } else {
+                      return (
+                        <MenuItem key={key} value={item.label}>
+                          {item.label}
+                        </MenuItem>
+                      );
+                    }
+                  })}
+                </Select>
+
+                <TextField
+                  id="outlined-basic"
+                  label="Number of units"
+                  variant="outlined"
+                  type="number"
+                  // value={numberOfUnits}
+                  onchange={(e) => {
+                    const numberOfUnits = Math.round(e.target.value);
+                    // Convert the rounded value to an integer.
+                    const numberOfUnitsInt = parseInt(numberOfUnits);
+                    setNumberOfUnits(numberOfUnitsInt);
+                    if (numberOfUnits === 0) {
+                      setNumberOfUnits("");
+                    }
                   }}
-                >
-                  <div className="label">
-                    <Typography variant="body1">Property Type</Typography>
-                  </div>
-                  <div className="input-field">
-                    <Select
-                      sx={{ width: "20vw" }}
-                      value={propertyType}
-                      onChange={(event) => {
-                        setPropertyType([event.target.value]);
-                      }}
-                      label="Property Type"
-                    >
-                      {properties.map((item, key) => {
-                        if (item.header === true) {
-                          return (
-                            <ListSubheader
-                              key={key}
-                              sx={{
-                                fontWeight: "bold",
-                                backgroundColor: "#686868",
-                                color: "white",
-                              }}
-                            >
-                              {item.label}
-                            </ListSubheader>
-                          );
-                        } else {
-                          return (
-                            <MenuItem key={key} value={item.label}>
-                              {item.label}
-                            </MenuItem>
-                          );
-                        }
-                      })}
-                    </Select>
-                  </div>
-                </div>
-                {/*Total  Number of units */}
-                <div
-                  className="item"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr",
+                />
+                <TextField
+                  label="Available units"
+                  id="outlined-basic"
+                  variant="outlined"
+                  type="number"
+                  onchange={(e) => {
+                    const availableUnits = Math.round(e.target.value);
+                    // Convert the rounded value to an integer.
+                    const availableUnitsInt = parseInt(availableUnits);
+                    setAvailableUnits(availableUnitsInt);
+                    if (availableUnits === 0) {
+                      setAvailableUnits("");
+                    }
                   }}
-                >
-                  <div className="label">
-                    <Typography variant="body1">Units</Typography>
-                  </div>
-                  <div className="input-field">
-                    <CustomTextField
-                      value={numberOfUnits}
-                      placeholder="Units"
-                      onchange={(e) => {
-                        const numberOfUnits = Math.round(e.target.value);
-                        // Convert the rounded value to an integer.
-                        const numberOfUnitsInt = parseInt(numberOfUnits);
-                        setNumberOfUnits(numberOfUnitsInt);
-                        if (numberOfUnits === 0) {
-                          setNumberOfUnits("");
-                        }
-                      }}
-                      onFocus={() => setNumberOfUnits("")}
-                      type="number"
-                    />
-                  </div>
-                </div>
-                {/*Available of units */}
-                <div
-                  className="item"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr",
-                  }}
-                >
-                  <div className="label">
-                    <Typography variant="body1">Available Units</Typography>
-                  </div>
-                  <div className="input-field">
-                    <CustomTextField
-                      value={availableUnits}
-                      placeholder="Units"
-                      onchange={(e) => {
-                        const availableUnits = Math.round(e.target.value);
-                        // Convert the rounded value to an integer.
-                        const availableUnitsInt = parseInt(availableUnits);
-                        setAvailableUnits(availableUnitsInt);
-                        if (availableUnits === 0) {
-                          setAvailableUnits("");
-                        }
-                      }}
-                      onFocus={() => setAvailableUnits("")}
-                      type="number"
-                    />
-                  </div>
-                </div>
-                {/* Select Images */}
+                />
+                <ActionButton label="Submit" handleAction={handleAction} />
+              </div>
+
+              <div style={{ flex: ".5", paddingLeft: "2%" }}>
                 <div
                   className="select-image"
                   style={{
@@ -372,7 +425,10 @@ function AddPropertyModal({}) {
                     justifyContent: "center",
                     alignSelf: "center",
                     alignItems: "center",
+                    marginBottom: "3%",
                   }}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
                   onClick={() => fileInputRef.current.click()}
                 >
                   <div
@@ -384,7 +440,9 @@ function AddPropertyModal({}) {
                     }}
                   >
                     <AddAPhoto />
-                    <Typography>Select Images</Typography>
+                    <Typography sx={{ fontWeight: "600" }}>
+                      Select or drag Images here
+                    </Typography>
                   </div>
 
                   {/* ref input */}
@@ -395,65 +453,89 @@ function AddPropertyModal({}) {
                       multiple
                       style={{ display: "none" }}
                       ref={fileInputRef}
-                      onChange={handleFileChange}
+                      // onChange={handleFileChange}
+                      onChange={handleFileSelect}
                     />
                   </div>
                 </div>
 
-                {/* upload complete alert */}
+                {fileName.length === 0 ? "" : <h3>Property Images:</h3>}
+                {/* "blob:http://localhost:5173/3971c08d-8a75-4910-8bf2-406713d1a902" */}
 
-                <Snackbar
-                  open={uploadComplete}
-                  autoHideDuration={6000}
-                  onClose={handleCloseUploadComplete}
+                <div
+                  style={{
+                    width: "100%",
+                    // backgroundColor: "red",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    // gap: "9%",
+                    height: "35vh",
+                    overflowY: "scroll",
+                  }}
                 >
-                  <Alert severity="success">Uploaded</Alert>
-                </Snackbar>
-
-                {/* empty fields alert */}
-                <Snackbar
-                  open={emptyFieldsAlert}
-                  autoHideDuration={6000}
-                  onClose={handleEmptyAlertClose}
-                >
-                  <Alert severity="error">All fields are required</Alert>
-                </Snackbar>
-                {/* maximum pictures alert */}
-                <Snackbar
-                  open={maximumPicturesAlert}
-                  autoHideDuration={6000}
-                  onClose={handleMaximumPicturesAlert}
-                >
-                  <Alert severity="error">Only 10 images are allowed</Alert>
-                </Snackbar>
-              </Box>
-              {/* Right column to get information */}
-              <Box
-                className="results"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "5vh",
-                }}
-              >
-                <Typography>Name: {name}</Typography>
-                <Typography>Address: {address}</Typography>
-                <Typography>Property Type: {propertyType}</Typography>
-                <Typography>Total number of Units: {numberOfUnits}</Typography>
-                <Typography>Available Units: {availableUnits}</Typography>
-
-                <Typography>Pictures:</Typography>
-
-                {isLoading && <Typography variant="h1">LOADING</Typography>}
+                  {fileName.map((data, i) => (
+                    <div
+                      style={{
+                        width: "9vw",
+                        height: "15vh",
+                        backgroundImage: `url(${data.url})`,
+                        backgroundSize: "cover",
+                        borderRadius: "5%",
+                        marginBottom: "1%",
+                        marginRight: "1.65vw",
+                      }}
+                      // key={index}
+                    >
+                      <IconButton
+                        onClick={() => {
+                          handleRemoveImageSelected(i);
+                          // alert(`clicked ${i}`);
+                        }}
+                        sx={{
+                          postion: "absolute",
+                          width: 20,
+                          height: 20,
+                          color: "red",
+                          // backgroundColor: "white",
+                          left: "9vw",
+                        }}
+                      >
+                        <Close />
+                      </IconButton>
+                    </div>
+                  ))}
+                </div>
+                {/* {isLoading && <Typography variant="h1">LOADING</Typography>}
                 <div style={{ display: "flex", gap: "1vw" }}>
                   {imageDisplay.map((item) => (
                     <SelectedImages item={item} />
                   ))}
-                </div>
-              </Box>
-              {/* submit button */}
+                </div> */}
+              </div>
             </Box>
-            <Box
+
+            {/* ==========  SNACKBARS FOR GIVING VALIDATION ALERTS ======= */}
+
+            <Snackbar
+              open={maximumPicturesAlert}
+              autoHideDuration={6000}
+              onClose={handleMaximumPicturesAlert}
+            >
+              <Alert severity="error">Only 10 images are allowed</Alert>
+            </Snackbar>
+
+            {/* empty fields alert */}
+            <Snackbar
+              open={emptyFieldsAlert}
+              autoHideDuration={6000}
+              onClose={handleEmptyAlertClose}
+            >
+              <Alert severity="error">All fields are required</Alert>
+            </Snackbar>
+
+            {/* <Typography variant="h5">Property Types</Typography> */}
+            {/* Name Address Property type units available units selectedImages */}
+            {/* <Box
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -461,7 +543,7 @@ function AddPropertyModal({}) {
               }}
             >
               <ActionButton label="Submit" handleAction={handleAction} />
-            </Box>
+            </Box> */}
           </Box>
         </Fade>
       </Modal>
