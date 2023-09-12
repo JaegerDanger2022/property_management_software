@@ -20,7 +20,7 @@ function PieCenterLabel({ children }) {
   );
 }
 
-export default function PieChartWithPaddingAngle({ activeUnits, totalUnits }) {
+function PieChartWithPaddingAngle({ activeUnits, totalUnits }) {
   // Active units the difference between totalunits and activeunits
   const data = [
     { label: "Active units", value: activeUnits },
@@ -48,3 +48,4 @@ export default function PieChartWithPaddingAngle({ activeUnits, totalUnits }) {
     </Stack>
   );
 }
+export default PieCenterLabel;
