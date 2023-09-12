@@ -507,7 +507,6 @@ function AddPropertyModal({}) {
                 </div>
 
                 {fileName.length === 0 ? "" : <h3>Property Images:</h3>}
-                {/* "blob:http://localhost:5173/3971c08d-8a75-4910-8bf2-406713d1a902" */}
 
                 <div
                   style={{
