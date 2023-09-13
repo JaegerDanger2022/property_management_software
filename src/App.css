@@ -166,7 +166,7 @@
 }
 .image div:nth-child(2) {
   grid-area: stat;
-  background-color: rgb(161, 110, 110);
+  /* background-color: rgb(161, 110, 110); */
 }
 .image div:nth-child(3) {
   grid-area: up;

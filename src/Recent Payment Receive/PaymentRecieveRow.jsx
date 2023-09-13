@@ -18,11 +18,16 @@ function PaymentRecieveRow({
   return (
     <ListItem>
       <ListItemAvatar>
-        <Avatar>{tenantName}</Avatar>
+        <Avatar
+          variant="rounded"
+          sx={{ background: "black", color: "#FEECEC" }}
+        >
+          {tenantName}
+        </Avatar>
       </ListItemAvatar>
       <ListItemText
         primary={
-          <>
+          <div>
             {/* THIS IS RECENT TENANT NAME OR HOUSE ADDRESS */}
             {address}
             {/* END OF RECENT TENANT NAME OR HOUSE ADDRESS */}
@@ -31,24 +36,28 @@ function PaymentRecieveRow({
                 float: "right",
                 display: "flex",
                 alignItems: "center",
+                color: "red",
               }}
             >
               {/* END OF RECENT TENANT NAME OR HOUSE ADDRESS */}
 
               {/* THIS IS RECENT TENANT MONEY NOTE ICON */}
               <div>
-                <IconButton>{recentTenantIcon}</IconButton>
+                <IconButton sx={{ color: "red" }}>
+                  {recentTenantIcon}
+                </IconButton>
               </div>
               {/* END OF RECENT TENANT MONEY NOTE ICON */}
 
               {/* THIS IS RECENT PAYMENT RECEIVED AMOUNT NOTE */}
-              <div>{amountReceived}</div>
+              <div style={{ color: "#CD9050" }}>{amountReceived}</div>
               {/* END OF RECENT PAYMENT RECEIVED AMOUNT  NOTE*/}
             </span>
-          </>
+          </div>
         }
         // THIS IS RECENT PAYMENT RECEIVED DATE
         secondary={recentTenantDate}
+        sx={{ color: "green" }}
         // END OF RECENT PAYMENT RECEIVED DATE
       />
     </ListItem>
