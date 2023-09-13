@@ -43,7 +43,7 @@ const Dashboard = () => {
         <Card
           className="Leases"
           sx={{
-            backgroundColor: "#E3C9AE",
+            backgroundColor: "#F3F0EB",
             color: "black",
             height: "100%",
             width: "100%",
@@ -112,7 +112,7 @@ const Dashboard = () => {
           {/*  END TOP VIEWED PROPERTY -> IMAGE DISPLAY*/}
 
           {/* TOP VIEWED PROPERTY -> AMAZON */}
-          <div style={{ background: "#C3AE97" }}>
+          <div style={{ background: "#F3F0EB" }}>
             <small style={{ color: "black" }}>
               {" "}
               Amazon Echo Plus (3nd Gen) <br /> -Premium Quality{" "}
@@ -152,7 +152,7 @@ const Dashboard = () => {
         <Card
           className="Leases"
           sx={{
-            backgroundColor: "#E3C9AE",
+            backgroundColor: "#F3F0EB",
             color: "black",
             height: "100%",
             width: "100%",
@@ -202,7 +202,7 @@ const Dashboard = () => {
             color: "wheat",
           }}
         >
-          <div style={{ background: "#C3AE97" }}>
+          <div style={{ background: "#F3F0EB" }}>
             <div style={{ color: "black", fontSize: "19px" }}>Total Sales</div>
             <div>
               {" "}
@@ -260,7 +260,7 @@ const Dashboard = () => {
             color: "wheat",
           }}
         >
-          <div style={{ background: "#C3AE97" }}>
+          <div style={{ background: "#F3F0EB" }}>
             <div style={{ color: "black", fontSize: "19px" }}>Total Sales</div>
             <div>
               {" "}
