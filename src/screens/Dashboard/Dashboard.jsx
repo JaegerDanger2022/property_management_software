@@ -13,8 +13,18 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { Cancel, MoreVert, Recycling } from "@mui/icons-material";
+import {
+  Assignment,
+  AttachMoney,
+  Cancel,
+  CurrencyBitcoin,
+  Hail,
+  Money,
+  MoreVert,
+  Recycling,
+} from "@mui/icons-material";
 import PaymentRecieveRow from "../../Recent Payment Receive/PaymentRecieveRow";
+import image from "../../assets/images/jp.jpg";
 
 const Dashboard = () => {
   return (
@@ -31,94 +41,44 @@ const Dashboard = () => {
       <div className="commonPadding">
         {" "}
         <Card
-          className="recentPaymentReceive"
+          className="Leases"
           sx={{
-            backgroundColor: "#E3C9AE",
+            backgroundColor: "#F3F0EB",
+            color: "black",
             height: "100%",
             width: "100%",
             borderRadius: "1dvw",
+            fontWeight: "600",
           }}
         >
-          {/* ==================================== */}
+          {/* ================================ */}
           <div>
-            <List sx={{ width: "100%", maxWidth: 752 }}>
-              <ListItem
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                {/* THIS IS RECENT PAYMENT RECEIVED HEADER */}
-                <div>Recent Payment Received</div>
-                {/* END OF RECENT PAYMENT RECEIVED HEADER */}
-
-                <div
-                  style={{
-                    display: "flex",
-                  }}
-                >
-                  {/* THIS IS RECENT PAYMENT RECEIVED ICON FOR RECYCLING */}
-                  <IconButton>
-                    {" "}
-                    <Recycling />{" "}
-                  </IconButton>
-                  {/* END OF RECENT PAYMENT RECEIVED ICON FOR RECYCLING */}
-
-                  {/* THIS IS RECENT PAYMENT RECEIVED ICON FOR MOREVERT */}
-                  <IconButton>
-                    {" "}
-                    <MoreVert />{" "}
-                  </IconButton>
-                  {/* END OF RECENT PAYMENT RECEIVED ICON FOR MOREVERT */}
-                </div>
-              </ListItem>
-              <Divider />
-            </List>
-          </div>
-          <div>
-            {/* THIS IS RECENT PAYMENT RECEIVE RENDERING PAGE*/}
-            <div>
-              <div className="PaymentReceivedScroll">
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
-                <PaymentRecieveRow
-                  amountReceived={"500,000"}
-                  tenantName={"jP"}
-                  recentTenantDate={"5 days ago"}
-                  address={"Virginia Street"}
-                  recentTenantIcon={"$"}
-                />
+            {/* =========================== */}
+            <div className="leasesOutstandingBalnce">
+              <div>Recent Payment Received</div>
+              <div>
+                <IconButton>
+                  <Recycling />
+                </IconButton>
+                <IconButton>
+                  <MoreVert />
+                </IconButton>{" "}
               </div>
             </div>
-            {/* END OF RECENT PAYMENT RECEIVE RENDERING PAGE*/}
+            <Divider sx={{ background: "white" }} />
+            {/* =========================== */}
           </div>
+
+          <div>
+            <PaymentRecieveRow
+              amountReceived={"500,000"}
+              tenantName={<Money />}
+              recentTenantDate={"5 days ago"}
+              address={"Virginia Street"}
+              recentTenantIcon={"$"}
+            />
+          </div>
+          {/* =================================== */}
         </Card>
       </div>
       {/* END OF RECENT PAYMENT RECEIVED HISTORY */}
@@ -138,36 +98,51 @@ const Dashboard = () => {
           <div>
             <Card
               sx={{
-                borderRadius: "10px",
-                width: "200px",
-                height: "2vh",
-                padding: "100px 23px",
-                backgroundImage: `url('your-image-url.jpg')`,
+                borderRadius: "1px",
+                width: "100%",
+                // height: "2vh",
+                padding: "75px 23px",
+                backgroundImage: `url(${image})`,
                 backgroundSize: "cover",
-                // color: "white",
+                backgroundRepeat: "no-repeat",
+                position: "relative",
               }}
             ></Card>
           </div>
           {/*  END TOP VIEWED PROPERTY -> IMAGE DISPLAY*/}
 
           {/* TOP VIEWED PROPERTY -> AMAZON */}
-          <div>
-            <small>
+          <div style={{ background: "#F3F0EB" }}>
+            <small style={{ color: "black" }}>
               {" "}
               Amazon Echo Plus (3nd Gen) <br /> -Premium Quality{" "}
             </small>
             <div>
               {" "}
-              <small className="askingPrice">
+              <small
+                className="askingPrice"
+                style={{ background: "black", color: "red" }}
+              >
                 $45.00K-$55.00K{" "}
-                <span style={{ padding: "0 25px" }}>Asking Price</span>{" "}
+                <span style={{ padding: "0 25px", color: "wheat" }}>
+                  Asking Price
+                </span>{" "}
               </small>{" "}
             </div>
           </div>
           {/* END OF TOP VIEWED PROPERTY -> AMAZON */}
 
           {/* TOP VIEWED PROPERTY HEADLINE */}
-          <div>Top viewed Properties</div>
+          <div
+            style={{
+              color: "white",
+              background: "black",
+              fontSize: "13px",
+              fontWeight: "500",
+            }}
+          >
+            Top viewed Properties
+          </div>
           {/* END OF TOP VIEWED PROPERTY HEADLINE */}
         </Card>
       </div>{" "}
@@ -177,17 +152,19 @@ const Dashboard = () => {
         <Card
           className="Leases"
           sx={{
-            backgroundColor: "#FEECEC",
+            backgroundColor: "#F3F0EB",
+            color: "black",
             height: "100%",
             width: "100%",
             borderRadius: "1dvw",
+            fontWeight: "600",
           }}
         >
           {/* ================================ */}
           <div>
             {/* =========================== */}
             <div className="leasesOutstandingBalnce">
-              <div>Leases Outstanding Balance</div>
+              <div>Leases Balance</div>
               <div>
                 <IconButton>
                   <Recycling />
@@ -197,14 +174,14 @@ const Dashboard = () => {
                 </IconButton>{" "}
               </div>
             </div>
-            <Divider />
+            <Divider sx={{ background: "white" }} />
             {/* =========================== */}
           </div>
 
           <div>
             <PaymentRecieveRow
               amountReceived={"500,000"}
-              tenantName={"jP"}
+              tenantName={<Money />}
               recentTenantDate={"5 days ago"}
               address={"Virginia Street"}
               recentTenantIcon={"$"}
@@ -218,39 +195,55 @@ const Dashboard = () => {
         <Card
           className="totalRevenue "
           sx={{
-            backgroundColor: "#EFECFD",
+            backgroundColor: "black",
             height: "100%",
             width: "100%",
             borderRadius: "1dvw",
-            // paddingTop: "5%",
+            color: "wheat",
           }}
         >
-          <div>
-            <div>Total Sales</div>
+          <div style={{ background: "#F3F0EB" }}>
+            <div style={{ color: "black", fontSize: "19px" }}>Total Sales</div>
             <div>
               {" "}
-              <small>Oct 26/ 23-Nov</small>{" "}
+              <small style={{ color: "green" }}>Oct 26/ 23-Nov</small>{" "}
             </div>
           </div>
           <div>
-            <div>Share</div>
-            <div>
-              {" "}
-              <small>$2,453.80</small>{" "}
-            </div>
-            <div>
-              <small style={{ fontSize: "9px" }}>-8.5% year over year</small>
+            <div style={{ background: "#EFECFD", height: "18vh" }}>
+              <div style={{ color: "black", fontSize: "20px" }}>Share</div>
+              <div>
+                {" "}
+                <small style={{ color: "red" }}>$2,453.80</small>{" "}
+              </div>
+              <div>
+                <small style={{ fontSize: "9.5px", color: "black" }}>
+                  -8.5% year over year
+                </small>
+              </div>
             </div>
           </div>
-          <div className="flexBTN">
-            <div>
+          <div className="flexBTN" style={{ background: "#EFECFD" }}>
+            <div style={{ color: "red" }}>
               <div>$2,213,123.80</div>
               <div>
                 <small> $2,213,123.80</small>
               </div>
             </div>
             <div>
-              <div>BTN</div>
+              <div>
+                <button
+                  style={{
+                    width: "60px",
+                    background: "black",
+                    color: "white",
+                    borderRadius: "5px ",
+                    border: "1px solid white",
+                  }}
+                >
+                  <AttachMoney />
+                </button>
+              </div>
             </div>
           </div>
         </Card>
@@ -260,38 +253,55 @@ const Dashboard = () => {
         <Card
           className="totalRevenue "
           sx={{
-            backgroundColor: "#EFECFD",
+            backgroundColor: "black",
             height: "100%",
             width: "100%",
             borderRadius: "1dvw",
+            color: "wheat",
           }}
         >
-          <div>
-            <div>Total Sales</div>
+          <div style={{ background: "#F3F0EB" }}>
+            <div style={{ color: "black", fontSize: "19px" }}>Total Sales</div>
             <div>
               {" "}
-              <small>Oct 26/ 23-Nov</small>{" "}
+              <small style={{ color: "green" }}>Oct 26/ 23-Nov</small>{" "}
             </div>
           </div>
           <div>
-            <div>Share</div>
-            <div>
-              {" "}
-              <small>$2,453.80</small>{" "}
-            </div>
-            <div>
-              <small style={{ fontSize: "9px" }}>-8.5% year over year</small>
+            <div style={{ background: "#EFECFD", height: "18vh" }}>
+              <div style={{ color: "black", fontSize: "20px" }}>Share</div>
+              <div>
+                {" "}
+                <small style={{ color: "red" }}>$2,453.80</small>{" "}
+              </div>
+              <div>
+                <small style={{ fontSize: "9.5px", color: "black" }}>
+                  -8.5% year over year
+                </small>
+              </div>
             </div>
           </div>
-          <div className="flexBTN">
-            <div>
+          <div className="flexBTN" style={{ background: "#EFECFD" }}>
+            <div style={{ color: "red" }}>
               <div>$2,213,123.80</div>
               <div>
                 <small> $2,213,123.80</small>
               </div>
             </div>
             <div>
-              <div>BTN</div>
+              <div>
+                <button
+                  style={{
+                    width: "60px",
+                    background: "black",
+                    color: "white",
+                    borderRadius: "5px ",
+                    border: "1px solid white",
+                  }}
+                >
+                  <CurrencyBitcoin />
+                </button>
+              </div>
             </div>
           </div>
         </Card>
