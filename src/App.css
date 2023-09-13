@@ -456,15 +456,109 @@
 /* ===========**Files***** */
 .Propertynotes {
   display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 50% 50%;
-  grid-template-areas: "leftside" "rightside";
+  grid-template-columns: 35% 65%;
+  grid-template-rows: 100%;
+  grid-template-areas: "leftside rightside";
   height: 100%;
+  column-gap: 0.5em;
 }
-/* .Propertynotes >div {
-padding: 1em;
-} */
+.Propertynotes > div {
+  padding: 1em;
+}
 .Propertynotes div:nth-child(1) {
   grid-area: leftside;
-  background: peru;
+  /* background: peru; */
 }
+.Propertynotes div:nth-child(2) {
+  grid-area: rightside;
+  /* background: red; */
+}
+
+/* ============= */
+.leftStickyNote {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: "leftside";
+  height: 100%;
+  /* width: 50%; */
+}
+.leftStickyNote div:nth-child(1) {
+  grid-area: leftside;
+  /* background: black; */
+}
+/* ============== Header for sticky note **** */
+.stickyHeader {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 20% 70%;
+  grid-template-areas: "head" "title" "body";
+  grid-template-columns: minmax(100px, auto);
+  height: 100%;
+}
+.stickyHeader > div {
+  padding: 1em;
+}
+
+.stickyHeader div:nth-child(1) {
+  grid-area: head;
+  /* background: violet; */
+}
+.stickyHeader div:nth-child(2) {
+  grid-area: title;
+  /* background: green; */
+}
+.stickyHeader div:nth-child(3) {
+  grid-area: body;
+  /* background: yellow; */
+}
+/* =======================stickyRight */
+.rightStickyNote {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: "leftside rightside" "down up";
+  height: 100%;
+  column-gap: 0.5em;
+  row-gap: 0.5em;
+  grid-template-columns: minmax(200px, auto);
+}
+
+.rightStickyNote div:nth-child(1) {
+  grid-area: leftside;
+  /* background: blue; */
+}
+.rightStickyNote div:nth-child(2) {
+  grid-area: rightside;
+  /* background: yellow; */
+}
+.rightStickyNote div:nth-child(3) {
+  grid-area: up;
+  /* background: violet; */
+}
+.rightStickyNote div:nth-child(4) {
+  grid-area: down;
+  /* background: green; */
+}
+/* =============== */
+.cardGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 20% 65% 15%;
+  grid-template-areas: "leftside" "rightside" "up";
+  height: 100%;
+  grid-template-rows: minmax(60px);
+}
+
+.cardGrid div:nth-child(1) {
+  grid-area: leftside;
+  /* background: brown; */
+}
+.cardGrid div:nth-child(2) {
+  grid-area: rightside;
+  /* background: yellow; */
+}
+.cardGrid div:nth-child(3) {
+  grid-area: up;
+  /* background: violet; */
+}
+/* =================================== */
