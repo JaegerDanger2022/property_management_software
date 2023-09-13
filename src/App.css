@@ -320,11 +320,11 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  font-size: 15px;
+  font-size: 12px;
 }
 .tasksPropertyLocation {
   display: flex;
-  font-size: 15px;
+  font-size: 12px;
 
   align-items: center;
   background: #f8c99f;
@@ -341,6 +341,7 @@
 .tasksHouseName {
   display: flex;
   justify-content: flex-start;
+  font-size: 12px;
 }
 .tasksUsers {
   display: flex;

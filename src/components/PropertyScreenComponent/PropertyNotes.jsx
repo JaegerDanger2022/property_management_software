@@ -42,6 +42,14 @@ const PropertyNotes = () => {
                       Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                       Reprehenderit id at, a nostrum fuga quis, quasi deserunt,
                       consequuntur molestias suscipit est blanditiis deleniti
+                      eum molestiae fugiat eos ullam recusandae. Illum. Lorem
+                      ipsum dolor, sit amet consectetur adipisicing elit.
+                      Reprehenderit id at, a nostrum fuga quis, quasi deserunt,
+                      consequuntur molestias suscipit est blanditiis deleniti
+                      eum molestiae fugiat eos ullam recusandae. Illum. Lorem
+                      ipsum dolor, sit amet consectetur adipisicing elit.
+                      Reprehenderit id at, a nostrum fuga quis, quasi deserunt,
+                      consequuntur molestias suscipit est blanditiis deleniti
                       eum molestiae fugiat eos ullam recusandae. Illum.
                     </div>
                   </div>
@@ -90,7 +98,6 @@ const PropertyNotes = () => {
                           }}
                         >
                           <div>
-                            {" "}
                             <FormatBold />
                           </div>
 

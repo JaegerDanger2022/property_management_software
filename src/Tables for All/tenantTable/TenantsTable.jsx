@@ -23,7 +23,7 @@ function TenantsTable() {
   };
 
   const cellStyle = {
-    padding: "15px 10px",
+    padding: "5px 10px",
   };
   const dividerStyle = {
     borderLeft: "1px solid black",
@@ -48,9 +48,7 @@ function TenantsTable() {
             <th style={cellStyle} scope="col" className="propertyColor">
               Created At
             </th>
-            {/* <th style={cellStyle} scope="col" className="propertyColor">
-              Status
-            </th> */}
+
             <th style={cellStyle} scope="col" className="propertyColor">
               Menu
             </th>
@@ -77,7 +75,14 @@ function TenantsTable() {
                       <div>
                         <div className="futureTenants">
                           <div>
-                            <AccessAlarm />{" "}
+                            <AccessAlarm
+                              sx={{
+                                color: "#AABA9F",
+                                background: "white",
+                                fontSize: "19px",
+                                borderRadius: "7px",
+                              }}
+                            />{" "}
                           </div>
                           <div>Future Tenant</div>
                         </div>
@@ -99,7 +104,14 @@ function TenantsTable() {
                 <div>
                   <div className="tenantLocation">
                     <div>
-                      <AddLocation />
+                      <AddLocation
+                        sx={{
+                          color: "#AABA9F",
+                          background: "white",
+                          fontSize: "19px",
+                          borderRadius: "7px",
+                        }}
+                      />
                     </div>
                     <div>705 Virginia WLK</div>
                   </div>
@@ -117,7 +129,11 @@ function TenantsTable() {
                     <div className="tenantContact">
                       <div>
                         {" "}
-                        <AddIcCall />
+                        <AddIcCall
+                          sx={{
+                            fontSize: "19px",
+                          }}
+                        />
                       </div>
                       <div>+233 (###)</div>
                     </div>
@@ -136,7 +152,14 @@ function TenantsTable() {
                     <div className="dateAndTime">
                       <div>
                         {" "}
-                        <CalendarMonth />
+                        <CalendarMonth
+                          sx={{
+                            color: "#AABA9F",
+                            background: "white",
+                            fontSize: "19px",
+                            borderRadius: "7px",
+                          }}
+                        />
                       </div>
                       <div>10/19/2019</div>
                     </div>
@@ -145,19 +168,6 @@ function TenantsTable() {
               </div>
               {/* ================================================== */}
             </td>
-            {/* <td style={cellStyle}> */}
-            {/* ================== Active Units ======================= */}
-            {/* <div className="office">
-                <div>
-                  <span style={dividerStyle}></span>{" "}
-                </div>
-                <div>
-                  <Book />
-                </div>
-                <div>2 Units</div>
-              </div> */}
-            {/* ================================================== */}
-            {/* </td> */}
             <td style={cellStyle}>
               {/* ==================  Menu ======================= */}
               <div className="office">
@@ -172,14 +182,6 @@ function TenantsTable() {
             </td>
           </tr>
         </tbody>
-        {/* <tfoot>
-          <tr>
-            <th style={cellStyle}>Total</th>
-            <td style={cellStyle}>21,000</td>
-            <td style={cellStyle}>Total 1</td>
-            <td style={cellStyle}>Total 2</td>
-          </tr>
-        </tfoot> */}
       </table>
     </div>
   );

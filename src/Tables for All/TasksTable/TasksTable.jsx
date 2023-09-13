@@ -28,7 +28,7 @@ function TasksTable() {
   };
 
   const cellStyle = {
-    padding: "15px 10px",
+    padding: "5px 10px",
   };
   const dividerStyle = {
     borderLeft: "1px solid black",
@@ -69,9 +69,7 @@ function TasksTable() {
                 <div>
                   <IconButton>
                     {" "}
-                    <Assignment
-                      sx={{ color: "#DBE0AD", background: "black" }}
-                    />
+                    <Assignment sx={{ color: "#DBE0AD" }} />
                   </IconButton>
                 </div>
                 <div>
@@ -96,7 +94,9 @@ function TasksTable() {
                       <div>
                         <div className="tasksPropertyLocation">
                           <div>
-                            <Dangerous />
+                            <Dangerous
+                              sx={{ fontSize: "10px", color: "red" }}
+                            />
                           </div>
                           <div>#7865</div>
                         </div>
@@ -120,7 +120,7 @@ function TasksTable() {
                 <div>
                   <div className="tasksUsersName">
                     <div>
-                      <Avatar>User</Avatar>
+                      <Avatar sx={{ fontSize: "10px" }}>User</Avatar>
                     </div>
                     <div>user</div>
                   </div>
@@ -128,7 +128,7 @@ function TasksTable() {
                 <div>
                   <div className="tasksUsersName">
                     <div>
-                      <Avatar>User</Avatar>
+                      <Avatar sx={{ fontSize: "10px" }}>User</Avatar>
                     </div>
                     <div>user</div>
                   </div>
@@ -148,9 +148,10 @@ function TasksTable() {
                         {" "}
                         <CalendarMonth
                           sx={{
-                            color: "white",
-                            background: "black",
+                            color: "#DBE0AD",
+                            // background: "black",
                             borderRadius: "7px",
+                            fontSize: "19px",
                           }}
                         />
                       </div>
@@ -161,9 +162,10 @@ function TasksTable() {
                         {" "}
                         <AccessAlarm
                           sx={{
-                            color: "white",
-                            background: "black",
+                            color: "#DBE0AD",
+                            // background: "black",
                             borderRadius: "7px",
+                            fontSize: "19px",
                           }}
                         />
                       </div>
@@ -188,6 +190,7 @@ function TasksTable() {
                           sx={{
                             color: "#AABA9F",
                             background: "white",
+                            fontSize: "19px",
                             borderRadius: "7px",
                           }}
                         />
@@ -201,6 +204,7 @@ function TasksTable() {
                           sx={{
                             color: "#AABA9F",
                             background: "white",
+                            fontSize: "19px",
                             borderRadius: "7px",
                           }}
                         />
@@ -223,6 +227,7 @@ function TasksTable() {
                     sx={{
                       color: "#EA7010",
                       background: "white",
+                      fontSize: "19px",
                       borderRadius: "7px",
                     }}
                   />

@@ -48,7 +48,7 @@ const PropertyFiles = () => {
           <div style={{ flex: "0.3" }}> </div>
           <div style={{ flex: "0.7" }}>
             {" "}
-            <Download sx={{ width: 15 }} />{" "}
+            <Download sx={{ width: 15, color: "red" }} />{" "}
           </div>
         </div>
       </Card>

@@ -210,7 +210,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div>
-            <div style={{ background: "#E3C9AE", height: "18vh" }}>
+            <div style={{ background: "#EFECFD", height: "18vh" }}>
               <div style={{ color: "black", fontSize: "20px" }}>Share</div>
               <div>
                 {" "}
@@ -223,7 +223,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="flexBTN" style={{ background: "#E3C9AE" }}>
+          <div className="flexBTN" style={{ background: "#EFECFD" }}>
             <div style={{ color: "red" }}>
               <div>$2,213,123.80</div>
               <div>
@@ -268,7 +268,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div>
-            <div style={{ background: "#E3C9AE", height: "18vh" }}>
+            <div style={{ background: "#EFECFD", height: "18vh" }}>
               <div style={{ color: "black", fontSize: "20px" }}>Share</div>
               <div>
                 {" "}
@@ -281,7 +281,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="flexBTN" style={{ background: "#E3C9AE" }}>
+          <div className="flexBTN" style={{ background: "#EFECFD" }}>
             <div style={{ color: "red" }}>
               <div>$2,213,123.80</div>
               <div>
