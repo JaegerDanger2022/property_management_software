@@ -1,7 +1,7 @@
 import { Box, Button, Card, IconButton, Paper } from "@mui/material";
 import React from "react";
 import { SidebarButton } from "./Buttons/SidebarButton";
-import { Add, Menu } from "@mui/icons-material";
+import { Add, Dashboard, Menu } from "@mui/icons-material";
 import Rentals from "./Categories/Rentals/Rentals";
 import Leases from "./Categories/Leases/Leases";
 import Accounting from "./Categories/Accounting/Accounting";
@@ -10,7 +10,8 @@ import Tasks from "./Categories/Tasks/Tasks";
 import Communications from "./Categories/Communication/Communication";
 import Reports from "./Categories/Reports/Reports";
 import Settings from "./Categories/Settings/Settings";
-
+// images
+import Logo from "../../assets/images/whitehall-logo.png";
 const MainSidebar = () => {
   return (
     <div>
@@ -32,7 +33,7 @@ const MainSidebar = () => {
           {" "}
           <div style={{ flex: "0.9" }}>
             {" "}
-            <IconButton>Logo</IconButton>{" "}
+            <img src={Logo} style={{ width: "13vw" }} />
           </div>{" "}
           <div>
             <IconButton>
@@ -51,7 +52,7 @@ const MainSidebar = () => {
           }}
         >
           <SidebarButton label="Create New" startIcon={<Add />} />
-          <SidebarButton label="Dashboard" startIcon={<Add />} />
+          <SidebarButton label="Dashboard" startIcon={<Dashboard />} />
         </Box>
         <Box
           sx={{

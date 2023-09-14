@@ -8,6 +8,7 @@ function ActionButton({
   handleAction,
   type,
   width,
+  sx,
 }) {
   const theme = useTheme();
 
@@ -18,7 +19,10 @@ function ActionButton({
       startIcon={startIcon}
       type={type}
       endIcon={endIcon}
-      sx={{ background: theme.palette.primary.button, width: width }}
+      sx={{
+        background: theme.palette.primary.button,
+        ...sx,
+      }}
     >
       {label}
     </Button>

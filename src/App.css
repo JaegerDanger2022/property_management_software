@@ -464,7 +464,14 @@
 /* .Propertynotes >div {
 padding: 1em;
 } */
+/* Property Notes */
 .Propertynotes div:nth-child(1) {
   grid-area: leftside;
   background: peru;
+}
+
+.PropertyNotesCancel {
+  color: "red";
+  display: flex;
+  align-items: center;
 }
