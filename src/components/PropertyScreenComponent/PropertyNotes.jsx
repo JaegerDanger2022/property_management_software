@@ -1,11 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../App.css";
 import ActionButton from "../ActionButton/ActionButton";
-import { Add, Close, Save } from "@mui/icons-material";
+import { Add, Close, Delete, Save } from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
-import { Alert, Box, Card, Snackbar, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Card,
+  IconButton,
+  Snackbar,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   increment,
@@ -39,8 +48,7 @@ const PropertyNotes = () => {
   const [randomDocName, setRandomDocName] = useState(v4);
   // state to trigger add title alert
   const [addTitleError, setAddTitleError] = useState(false);
-  // add list item autofocus state
-  const [listItemAutoFocus, setListItemAutoFocus] = useState(true);
+  // CHANGE
   const [ownerid, setOwnerid] = useState("testUser");
 
   // add title handle action function
@@ -115,70 +123,96 @@ const PropertyNotes = () => {
     }
   };
 
+  // function to delete saved note
+  const handleDeleteNote = async (entryid) => {
+    await deleteDoc(doc(db, `user_data/${userid}/notes`, `${entryid}`));
+    setGetSavedLists(!getSavedLists);
+  };
+
+  // STATE TO REFRESH GETALLNOTES FUNCTION
   const [getSavedLists, setGetSavedLists] = useState(false);
   const [downloadedSavedList, setDownloadedSavedList] = useState([]);
   // get saved lists
   useEffect(() => {
-    // reset randomDocName for next list
-    setRandomDocName(v4);
-    // get saved lists from database
-    const listRef = collection(db, `/user_data/${ownerid}/notes`);
-    try {
-      const q = query(listRef, orderBy("dateCreated", "desc"));
-      const allDocs = onSnapshot(q, (snapshot) => {
-        const items = [];
-        snapshot.forEach((doc) => {
-          items.push({ ...doc.data() });
-          setDownloadedSavedList(items);
+    const getAllNotes = async () => {
+      // reset randomDocName for next list
+      setRandomDocName(v4);
+      // get saved lists from database
+      const listRef = collection(db, `/user_data/${ownerid}/notes`);
+      try {
+        const q = query(listRef, orderBy("dateCreated", "desc"));
+        const allDocs = onSnapshot(q, (snapshot) => {
+          const items = [];
+          snapshot.forEach((doc) => {
+            items.push({ ...doc.data() });
+            setDownloadedSavedList(items);
+          });
         });
-      });
-    } catch (error) {}
+      } catch (error) {}
+    };
+    getAllNotes();
   }, [getSavedLists]);
 
-  return isEntering ? (
-    <Box sx={{ display: "flex", height: "auto" }}>
-      {downloadedSavedList.map((doc) => (
-        <SavedList entryTitle={doc.entryTitle} entries={doc.entries} />
+  return (
+    <div style={{ display: "flex", width: "100vw" }}>
+      {downloadedSavedList.map((doc, key) => (
+        <SavedList
+          key={key}
+          entryTitle={doc.entryTitle}
+          entries={doc.entries}
+          handleDeleteNote={() => handleDeleteNote(doc.entryid)}
+        />
       ))}
-      {isTitle ? (
-        <AddTitle
-          handleAddTitle={handleAddTitle}
-          listTitle={listTitle}
-          setListTitle={setListTitle}
-          setisTitle={setIsTitle}
-          setAddTitleError={setAddTitleError}
-          addTitleError={addTitleError}
-          handleCloseButton={handleCloseButton}
-        />
-      ) : isAnotherList ? (
-        <AddAnotherList
-          title={listTitle}
-          setIsAnotherList={setIsAnotherList}
-          addListItem={addListItem}
-          setAddListItem={setAddListItem}
-          handleAddListItem={handleAddListItem}
-          localListItems={localListItems}
-          handleCloseButton={handleCloseButton}
-          handleSaveList={handleSaveList}
-          listItemInputRef={listItemInputRef}
-        />
+
+      {isEntering ? (
+        <Box sx={{ display: "flex" }}>
+          {isTitle ? (
+            <AddTitle
+              handleAddTitle={handleAddTitle}
+              listTitle={listTitle}
+              setListTitle={setListTitle}
+              setisTitle={setIsTitle}
+              setAddTitleError={setAddTitleError}
+              addTitleError={addTitleError}
+              handleCloseButton={handleCloseButton}
+            />
+          ) : isAnotherList ? (
+            <AddAnotherList
+              title={listTitle}
+              setIsAnotherList={setIsAnotherList}
+              addListItem={addListItem}
+              setAddListItem={setAddListItem}
+              handleAddListItem={handleAddListItem}
+              localListItems={localListItems}
+              handleCloseButton={handleCloseButton}
+              handleSaveList={handleSaveList}
+              listItemInputRef={listItemInputRef}
+            />
+          ) : (
+            // diplay saved notes and add button
+            <div style={{ display: "flex" }}>
+              <div style={{ height: "57vh" }}>
+                <ActionButton
+                  handleAction={handleAction}
+                  startIcon={<Add />}
+                  label={"Add another List"}
+                />
+              </div>
+            </div>
+          )}
+        </Box>
       ) : (
-        <div style={{ height: "57vh" }}>
-          <ActionButton
-            handleAction={handleAction}
-            startIcon={<Add />}
-            label={"Add another List"}
-          />
+        // diplay saved notes and add button
+        <div style={{ display: "flex" }}>
+          <div style={{ height: "57vh" }}>
+            <ActionButton
+              handleAction={handleAction}
+              startIcon={<Add />}
+              label={"Add another List"}
+            />
+          </div>
         </div>
       )}
-    </Box>
-  ) : (
-    <div style={{ height: "57vh" }}>
-      <ActionButton
-        handleAction={handleAction}
-        startIcon={<Add />}
-        label={"Add another List"}
-      />
     </div>
   );
 };
@@ -197,8 +231,7 @@ const AddTitle = ({
     <Card
       sx={{
         width: "20vw",
-        minHeight: "20vh",
-        maxHeight: "auto",
+        height: "20vh",
         padding: "1vh 1vw 1vh 1vw",
         background: "#C9C9C9",
         borderRadius: "1vw",
@@ -255,23 +288,47 @@ const AddAnotherList = ({
   handleSaveList,
   listItemInputRef,
 }) => {
+  const theme = useTheme();
   return (
     <Card
       sx={{
         width: "20vw",
-        height: "20vh",
+        minHeight: "20vh",
+        maxHeight: "auto",
         padding: "1vh 1vw 1vw 1vw",
         background: "#C9C9C9",
-        height: "auto",
         borderRadius: "1vw",
+        overflowY: "auto",
       }}
     >
       {/* card title */}
-      <Typography variant="h5">{title}</Typography>
+      <Box
+        sx={{
+          background: "#22272B",
+          borderRadius: "1vw",
+          padding: "0.2vw",
+          marginBottom: "1vh",
+        }}
+        className="PropertyNotes_SavedNoteTitle"
+      >
+        <Typography
+          variant="h5"
+          color={theme.palette.text.onSurface}
+          sx={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {title}
+        </Typography>
+      </Box>
       {/* card text field */}
       <TextField
         autoFocus
         inputRef={listItemInputRef}
+        multiline
+        maxRows={40}
         id="filled-basic"
         label="Make and entry"
         variant="filled"
@@ -279,16 +336,27 @@ const AddAnotherList = ({
         onChange={(event) => {
           setAddListItem(event.target.value);
         }}
-        sx={{ width: "20vw", borderRadius: "2vw" }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleAddListItem();
-          }
-        }}
+        sx={{ width: "20vw", borderRadius: "2vw", marginBottom: "1vh" }}
+        // onKeyDown={(e) => {
+        //   if (e.key === "Enter") {
+        //     handleAddListItem();
+        //   }
+        // }}
       />
       {/* card saved content */}
       {localListItems.map((item) => (
-        <div style={{ display: "flex", flexDirection: "column" }}>{item}</div>
+        <Typography
+          variant="body"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "0.2vw",
+            marginBottom: "1vh",
+          }}
+          className="PropertyNotes_SavedNoteItem"
+        >
+          {item}
+        </Typography>
       ))}
       {/* card action button */}
       <Box
@@ -320,22 +388,69 @@ const AddAnotherList = ({
   );
 };
 
-const SavedList = ({ entryTitle, entries }) => {
+const SavedList = ({ entryTitle, entries, handleDeleteNote }) => {
+  const theme = useTheme();
   return (
     <Card
       sx={{
         width: "20vw",
         minHeight: "20vh",
-        maxHeight: "auto",
+        maxHeight: "80vh",
         margin: "0 1vw 0 0",
         padding: "1vh 1vw 1vh 1vw",
         background: "#C9C9C9",
         borderRadius: "1vw",
+        overflowY: "auto",
       }}
     >
-      <Typography variant="h4">{entryTitle}</Typography>
+      {/* delete button */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "1vh",
+        }}
+        onClick={handleDeleteNote}
+      >
+        <IconButton>
+          <Delete sx={{ color: "red" }} />
+        </IconButton>
+      </div>
+      {/* note title */}
+      <Box
+        sx={{
+          background: "#22272B",
+          borderRadius: "1vw",
+          padding: "0.2vw",
+          marginBottom: "1vh",
+        }}
+        className="PropertyNotes_SavedNoteTitle"
+      >
+        <Typography
+          variant="h5"
+          color={theme.palette.text.onSurface}
+          sx={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {entryTitle}
+        </Typography>
+      </Box>
+      {/* note items */}
       {entries.map((list) => (
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            display: "flex",
+            flexDirection: "column",
+            padding: "0.2vw",
+            marginBottom: "1vh",
+          }}
+          className="PropertyNotes_SavedNoteItem"
+        >
           <Typography>{list}</Typography>
         </div>
       ))}

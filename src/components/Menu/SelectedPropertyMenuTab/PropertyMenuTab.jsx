@@ -4,8 +4,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Property from "../../../screens/Rentals/Property/Property";
-// import PropertyOverview from "../../PropertyScreenComponent/PropertyOverview";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;

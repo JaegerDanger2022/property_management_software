@@ -470,8 +470,18 @@ padding: 1em;
   background: peru;
 }
 
-.PropertyNotesCancel {
-  color: "red";
-  display: flex;
-  align-items: center;
+.PropertyNotes_SavedNoteTitle:hover {
+  cursor: pointer;
+  background-color: #747779;
+  transition: 0.3s ease-in-out;
+}
+
+.PropertyNotes_SavedNoteItem {
+  background-color: #bdbdbd;
+}
+
+.PropertyNotes_SavedNoteItem:hover {
+  cursor: pointer;
+  background-color: #747779;
+  transition: 0.3s ease-in-out;
 }

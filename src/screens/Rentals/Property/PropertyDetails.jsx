@@ -11,7 +11,7 @@ import {
   property_numberOfUnits,
 } from "../../../../app/features/propertyDetailsSlice";
 // components
-import { Alert, Button, Snackbar, Typography, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 // import { AddTenantToPropertyModal } from "../modals/AddTenantToPropertyModal";
 // firebase
 import {
