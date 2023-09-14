@@ -27,10 +27,14 @@ import {
 } from "firebase/firestore";
 import { v4 } from "uuid";
 import { db } from "../../../app/utils/firebaseConfig";
+import { useSelector } from "react-redux";
+import { property_key } from "../../../app/features/propertyDetailsSlice";
 
 const PropertyNotes = () => {
   // TEMP USERID
   const [userid, setuserid] = useState("testUser");
+  // property key
+  const propertykey = useSelector(property_key);
 
   // state to set the list title string
   const [listTitle, setListTitle] = useState("");
@@ -98,7 +102,7 @@ const PropertyNotes = () => {
     try {
       const listDocRef = doc(
         db,
-        `user_data/${userid}/notes`,
+        `user_data/${userid}/properties/${propertykey}/notes`,
         `${randomDocName}`
       );
       await setDoc(listDocRef, {
@@ -125,7 +129,13 @@ const PropertyNotes = () => {
 
   // function to delete saved note
   const handleDeleteNote = async (entryid) => {
-    await deleteDoc(doc(db, `user_data/${userid}/notes`, `${entryid}`));
+    await deleteDoc(
+      doc(
+        db,
+        `user_data/${userid}/properties/${propertykey}/notes`,
+        `${entryid}`
+      )
+    );
     setGetSavedLists(!getSavedLists);
   };
 
@@ -138,7 +148,10 @@ const PropertyNotes = () => {
       // reset randomDocName for next list
       setRandomDocName(v4);
       // get saved lists from database
-      const listRef = collection(db, `/user_data/${ownerid}/notes`);
+      const listRef = collection(
+        db,
+        `/user_data/${userid}/properties/${propertykey}/notes`
+      );
       try {
         const q = query(listRef, orderBy("dateCreated", "desc"));
         const allDocs = onSnapshot(q, (snapshot) => {
