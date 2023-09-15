@@ -1,7 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../App.css";
 import ActionButton from "../ActionButton/ActionButton";
-import { Add, Close, Delete, Save } from "@mui/icons-material";
+import {
+  Add,
+  Cancel,
+  Check,
+  Close,
+  Delete,
+  MoreHoriz,
+  Save,
+  Settings,
+} from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
 import {
   Alert,
@@ -167,8 +176,8 @@ const PropertyNotes = () => {
   }, [getSavedLists]);
 
   return (
-    <div style={{ display: "flex", width: "100vw" }}>
-      {downloadedSavedList.map((doc, key) => (
+    <div style={{ display: "flex", height: "57vh" }}>
+      {/* {downloadedSavedList.map((doc, key) => (
         <SavedList
           key={key}
           entryTitle={doc.entryTitle}
@@ -225,7 +234,260 @@ const PropertyNotes = () => {
             />
           </div>
         </div>
-      )}
+      )} */}
+
+      <div
+        style={{
+          flex: "0.4",
+          // background: "red",
+          display: "grid",
+          placeItems: "center",
+        }}
+      >
+        <Card
+          style={{
+            borderRadius: "2%",
+            width: "87%",
+            height: "95%",
+            // background: "blue",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ flex: "0.15", background: "blue" }}>
+            <IconButton>
+              <Add />
+            </IconButton>
+            <IconButton sx={{ float: "right" }}>
+              <Settings />
+            </IconButton>
+          </div>
+          <div
+            style={{
+              flex: "0.15",
+              background: "whitesmoke",
+              display: "grid",
+              placeItems: "center",
+            }}
+          >
+            {" "}
+            <TextField
+              sx={{ width: "92%" }}
+              id="outlined-basic"
+              size="small"
+              label="Search"
+              variant="outlined"
+            />
+          </div>
+          <div
+            style={{
+              flex: "0.7",
+              display: "flex",
+              // height: "30%",
+              // background: "red",
+              // justifyContent: "center",
+              flexDirection: "column",
+              paddingLeft: "1vw",
+              overflowY: "scroll",
+            }}
+          >
+            {/* // CARD SETTINGS */}
+            {/* // This is the component for representing the notes in the mother sticky notes holder */}
+            <div style={{ listStyleType: "none" }}>
+              <li>
+                <Card
+                  style={{
+                    height: "15vh",
+                    width: "97%",
+                    // background: "red",
+                    borderRadius: ".5vw",
+                    display: "flex",
+                    flexDirection: "column",
+                    marginBottom: "1vh",
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "blue",
+                      flex: "0.08",
+                      borderTopLeftRadius: ".5vw",
+                      borderTopRightRadius: ".5vw",
+                    }}
+                  >
+                    {" "}
+                  </div>
+                  <div
+                    style={{
+                      background: "blue",
+                      flex: "0.92",
+                      display: "flex",
+                      flexDirection: "column",
+                      borderBottomLeftRadius: ".5vw",
+                      borderBottomRightRadius: ".5vw",
+                      // borderBottomLeftRadius: "10%",
+                    }}
+                  >
+                    <div style={{ flex: "0.25", background: "white" }}>
+                      {" "}
+                      <span style={{ fontSize: ".6em" }}>Aug 20</span>{" "}
+                      <MoreHoriz sx={{ float: "right" }} />{" "}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: ".8em",
+                      }}
+                    >
+                      {` Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Accusamus quidem vitae ipsum earum harum! Odit quam laudantium
+                  totam quis perferendis vero expedita quibusdam. Sunt, suscipit
+                  ad quas necessitatibus explicabo ratione.`.slice(0, 100)}
+                      {/* Write an if stamenet to display the ellipsis if only the length is more than 100 */}
+                      {`...`}
+                    </div>
+                  </div>
+                </Card>
+              </li>
+            </div>
+
+            {/* // END OF CARD SETTINGS  */}
+
+            {/* // Second Card */}
+          </div>
+        </Card>
+      </div>
+      <div
+        style={{
+          flex: "0.6",
+          // background: "blue",
+          paddingTop: "1.5vh",
+          display: "flex",
+          gap: "1.5%",
+          flexWrap: "wrap",
+        }}
+      >
+        {/* /// COMPONENT  FOT THE NOTE ITSELF */}
+        <Card
+          sx={{
+            width: "48%",
+            height: "46%",
+            background: "white",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ flex: ".25", background: "blue" }}>
+            <IconButton>
+              <Add />{" "}
+            </IconButton>{" "}
+            <IconButton>
+              {" "}
+              <Check />{" "}
+            </IconButton>{" "}
+            <span style={{ float: "right" }}>
+              <IconButton>
+                <MoreHoriz />
+              </IconButton>{" "}
+              <IconButton>
+                {" "}
+                <Close />{" "}
+              </IconButton>{" "}
+            </span>
+          </div>
+
+          <textarea
+            style={{
+              flex: ".75",
+              overflowY: "scroll",
+              resize: "none",
+              outline: "none",
+              border: "none",
+              padding: "4% 4%",
+            }}
+          ></textarea>
+        </Card>
+        {/* // THE COMPONENT ENDS HERE */}
+
+        {/* INTENTIONALLY DUPLICATED THE COMPOMENTS TO SEE HOW IT WILL LOOK ON THE PAGE WE WILL USE A MAP FUNCTION TO THAT  */}
+        <Card
+          sx={{
+            width: "48%",
+            height: "46%",
+            background: "white",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ flex: ".25", background: "blue" }}>
+            <IconButton>
+              <Add />{" "}
+            </IconButton>{" "}
+            <IconButton>
+              {" "}
+              <Check />{" "}
+            </IconButton>{" "}
+            <span style={{ float: "right" }}>
+              <IconButton>
+                <MoreHoriz />
+              </IconButton>{" "}
+              <IconButton>
+                {" "}
+                <Close />{" "}
+              </IconButton>{" "}
+            </span>
+          </div>
+
+          <textarea
+            style={{
+              flex: ".75",
+              overflowY: "scroll",
+              resize: "none",
+              outline: "none",
+              border: "none",
+              padding: "4% 4%",
+            }}
+          ></textarea>
+        </Card>
+        <Card
+          sx={{
+            width: "48%",
+            height: "46%",
+            background: "white",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ flex: ".25", background: "blue" }}>
+            <IconButton>
+              <Add />{" "}
+            </IconButton>{" "}
+            <IconButton>
+              {" "}
+              <Check />{" "}
+            </IconButton>{" "}
+            <span style={{ float: "right" }}>
+              <IconButton>
+                <MoreHoriz />
+              </IconButton>{" "}
+              <IconButton>
+                {" "}
+                <Close />{" "}
+              </IconButton>{" "}
+            </span>
+          </div>
+
+          <textarea
+            style={{
+              flex: ".75",
+              overflowY: "scroll",
+              resize: "none",
+              outline: "none",
+              border: "none",
+              padding: "4% 4%",
+            }}
+          ></textarea>
+        </Card>
+      </div>
     </div>
   );
 };
