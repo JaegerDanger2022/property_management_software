@@ -41,26 +41,30 @@ import { property_key } from "../../../app/features/propertyDetailsSlice";
 import { number } from "prop-types";
 import { formatFirestoreTimestamp } from "../../../app/utils/dateConversion";
 
+// the useeffect gets all the saved notes from the database ansaves it in downloadedSavedList and updates the numberOfNotesField
+// NotesOverview component displays a summary of all the notes. formatFirestoreTimestamp converts the timestamp
+// handleCreateLocalNote attached to the Add button of handleCreateLocalNote. It triggers an instance of LocalNote
+// LocalNote component has handleAddLocalNote function attached to its Add button. it submits the note to the database
+// SavedNote component is rendered when handleAddLocalNote is triggered. It displays a similar component to LocalNote, howerever,
+// the initial value of the textarea is the database verion of the entry from the LocalNote component.
+// when handleAddLocalNote is triggered the textarea value is uploaded as entries in the database. also an field called numberOfNotesField is added.
+// it will be used to limit the number of notes the user can create
+// SavedNote has handleUpdateSavedNote attached to its Add button. it updates the entries field in the database
+// handleDeleteNote deletes the note
+//
 const PropertyNotes = () => {
   // TEMP ownerid
   const [ownerid, setOwnerid] = useState("testUser");
   // property key
   const propertykey = useSelector(property_key);
 
-  // state to set the list title string
-  const [listTitle, setListTitle] = useState("");
-  // state to set the list item string
-  const [addListItem, setAddListItem] = useState("");
   // state to trigger local note component
   const [isLocalNote, setIsLocalNote] = useState(false);
-  // state to set the list item array
-  const [addLocalListArray, setAddLocalListArray] = useState([]);
+
   // state to hold all locally added items
   const [localNote, setlocalNote] = useState("");
   // state to hold all saved added items
   const [savedNote, setSavedNote] = useState("");
-  // state to trigger the add item component
-  const [isAnotherList, setIsAnotherList] = useState(false);
   // random doc name
   const [randomDocName, setRandomDocName] = useState(v4);
   // number of notes state
@@ -69,7 +73,11 @@ const PropertyNotes = () => {
   const [getSavedLists, setGetSavedLists] = useState(false);
   const [downloadedSavedList, setDownloadedSavedList] = useState([]);
 
-  // add list item handle action function
+  // function to initialize an instance of LocalNote component
+  const handleCreateLocalNote = () => {
+    setIsLocalNote(true);
+  };
+  // function to submit the value of textarea in LocalNote
   const handleAddLocalNote = async () => {
     // reset randomDocName for next list
     setRandomDocName(v4);
@@ -109,8 +117,7 @@ const PropertyNotes = () => {
     } catch (error) {}
   };
 
-  // update saved note
-  // add list item handle action function
+  // function to update the value of textarea in SavedNote
   const handleUpdateSavedNote = async (entryid) => {
     // set document
     try {
@@ -128,30 +135,6 @@ const PropertyNotes = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  // ref to focus on the set title field
-  const listItemInputRef = useRef(null);
-  // add another list button handle action function
-  const handleCreateLocalNote = () => {
-    setIsLocalNote(true);
-
-    // if (numberOfNotesField == 4) {
-    //   setIsLocalNote(true);
-    // } else {
-    //   alert("You have reached your limit of notes");
-    // }
-  };
-  // console.log(numberOfNotes);
-  // function triggered when the close button is clicked
-  const handleCloseButton = () => {
-    // clear local title state
-
-    setListTitle("");
-    // clear local list item state
-
-    setAddListItem("");
-    setIsAnotherList(false);
   };
 
   // function to delete saved note
