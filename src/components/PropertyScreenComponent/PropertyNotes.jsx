@@ -39,6 +39,7 @@ import { db } from "../../../app/utils/firebaseConfig";
 import { useSelector } from "react-redux";
 import { property_key } from "../../../app/features/propertyDetailsSlice";
 import { number } from "prop-types";
+import { formatFirestoreTimestamp } from "../../../app/utils/dateConversion";
 
 const PropertyNotes = () => {
   // TEMP ownerid
@@ -172,7 +173,6 @@ const PropertyNotes = () => {
 
   // get saved lists
   useEffect(() => {
-    console.log("re-rendered");
     // reset randomDocName for next list
     setRandomDocName(v4);
     // get number of notes created so far
@@ -250,6 +250,7 @@ const PropertyNotes = () => {
 export default PropertyNotes;
 
 const NotesOverview = ({ downloadedSavedList, handleCreateLocalNote }) => {
+  const theme = useTheme();
   return (
     <div
       style={{
@@ -269,7 +270,7 @@ const NotesOverview = ({ downloadedSavedList, handleCreateLocalNote }) => {
           flexDirection: "column",
         }}
       >
-        <div style={{ flex: "0.15", background: "blue" }}>
+        <div style={{ flex: "0.15", background: "#747779" }}>
           <IconButton onClick={handleCreateLocalNote}>
             <Add />
           </IconButton>
@@ -308,7 +309,7 @@ const NotesOverview = ({ downloadedSavedList, handleCreateLocalNote }) => {
         >
           {/* // CARD SETTINGS */}
           {/* // This is the component for representing the notes in the mother sticky notes holder */}
-          {downloadedSavedList.map((item, key) => {
+          {downloadedSavedList.map((item, key) => (
             <div style={{ listStyleType: "none" }} key={key}>
               <li>
                 <Card
@@ -324,7 +325,7 @@ const NotesOverview = ({ downloadedSavedList, handleCreateLocalNote }) => {
                 >
                   <div
                     style={{
-                      background: "blue",
+                      background: "#747779",
                       flex: "0.08",
                       borderTopLeftRadius: ".5vw",
                       borderTopRightRadius: ".5vw",
@@ -334,7 +335,7 @@ const NotesOverview = ({ downloadedSavedList, handleCreateLocalNote }) => {
                   </div>
                   <div
                     style={{
-                      background: "blue",
+                      background: "#747779",
                       flex: "0.92",
                       display: "flex",
                       flexDirection: "column",
@@ -345,7 +346,9 @@ const NotesOverview = ({ downloadedSavedList, handleCreateLocalNote }) => {
                   >
                     <div style={{ flex: "0.25", background: "white" }}>
                       {" "}
-                      <span style={{ fontSize: ".6em" }}>Aug 20</span>{" "}
+                      <span style={{ fontSize: ".6em" }}>
+                        {formatFirestoreTimestamp(item.dateCreated)}
+                      </span>{" "}
                       <MoreHoriz sx={{ float: "right" }} />{" "}
                     </div>
 
@@ -354,15 +357,20 @@ const NotesOverview = ({ downloadedSavedList, handleCreateLocalNote }) => {
                         fontSize: ".8em",
                       }}
                     >
-                      {item.entries.slice(0, 100)}
+                      <Typography
+                        variant="body"
+                        color={theme.palette.text.onSurface}
+                      >
+                        {item.entries.slice(0, 100)}
+                      </Typography>
                       {/* Write an if stamenet to display the ellipsis if only the length is more than 100 */}
                       {`...`}
                     </div>
                   </div>
                 </Card>
               </li>
-            </div>;
-          })}
+            </div>
+          ))}
 
           {/* // END OF CARD SETTINGS  */}
 
@@ -384,7 +392,7 @@ const LocalNote = ({ handleAddLocalNote, localNote, setlocalNote }) => {
         flexDirection: "column",
       }}
     >
-      <div style={{ flex: ".25", background: "blue" }}>
+      <div style={{ flex: ".25", background: "#747779" }}>
         <IconButton onClick={handleAddLocalNote}>
           <Add />{" "}
         </IconButton>{" "}
@@ -442,7 +450,7 @@ const SavedNote = ({
         flexDirection: "column",
       }}
     >
-      <div style={{ flex: ".25", background: "blue" }}>
+      <div style={{ flex: ".25", background: "#747779" }}>
         <IconButton onClick={handleUpdateSavedNote}>
           <Add />{" "}
         </IconButton>{" "}
