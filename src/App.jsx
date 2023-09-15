@@ -31,6 +31,7 @@ const theme = createTheme({
       secondary: "rgba(0,0,0,0.67)",
       disabled: "rgba(0,0,0,0.82)",
       hint: "rgba(34,25,77,0.91)",
+      onSurface: "white",
     },
     warning: {
       main: "rgba(237,108,2,0.93)",

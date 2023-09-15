@@ -464,7 +464,24 @@
 /* .Propertynotes >div {
 padding: 1em;
 } */
+/* Property Notes */
 .Propertynotes div:nth-child(1) {
   grid-area: leftside;
   background: peru;
+}
+
+.PropertyNotes_SavedNoteTitle:hover {
+  cursor: pointer;
+  background-color: #747779;
+  transition: 0.3s ease-in-out;
+}
+
+.PropertyNotes_SavedNoteItem {
+  background-color: #bdbdbd;
+}
+
+.PropertyNotes_SavedNoteItem:hover {
+  cursor: pointer;
+  background-color: #747779;
+  transition: 0.3s ease-in-out;
 }
