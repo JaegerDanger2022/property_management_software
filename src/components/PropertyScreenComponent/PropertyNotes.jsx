@@ -41,12 +41,15 @@ import { v4 } from "uuid";
 import { db } from "../../../app/utils/firebaseConfig";
 import { useSelector } from "react-redux";
 import { property_key } from "../../../app/features/propertyDetailsSlice";
+import { number } from "prop-types";
+import { formatFirestoreTimestamp } from "../../../app/utils/dateConversion";
 
 const PropertyNotes = () => {
-  // TEMP USERID
-  const [userid, setuserid] = useState("testUser");
+  // TEMP ownerid
+  const [ownerid, setOwnerid] = useState("testUser");
   // property key
   const propertykey = useSelector(property_key);
+
 
   ///  functionalities for note
 
@@ -64,6 +67,7 @@ const PropertyNotes = () => {
       color: "blue",
       id: noteIdentifier,
     };
+ 
 
     await setDoc(
       doc(
@@ -74,6 +78,7 @@ const PropertyNotes = () => {
       newNote
     );
   };
+
 
   const UpdateExistingNote = (newNoteContent, noteId) => {
     const collectionRef = doc(
@@ -169,23 +174,54 @@ const PropertyNotes = () => {
   return (
     <div style={{ display: "flex", height: "57vh" }}>
       <div
+
         style={{
-          flex: "0.4",
-          // background: "red",
-          display: "grid",
-          placeItems: "center",
+          borderRadius: "2%",
+          width: "87%",
+          height: "95%",
+          // background: "blue",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <Card
+        <div style={{ flex: "0.15", background: "#747779" }}>
+          <IconButton onClick={handleCreateLocalNote}>
+            <Add />
+          </IconButton>
+          <IconButton sx={{ float: "right" }}>
+            <Settings />
+          </IconButton>
+        </div>
+        <div
           style={{
-            borderRadius: "2%",
-            width: "87%",
-            height: "95%",
-            // background: "blue",
-            display: "flex",
-            flexDirection: "column",
+            flex: "0.15",
+            background: "whitesmoke",
+            display: "grid",
+            placeItems: "center",
           }}
         >
+          {" "}
+          <TextField
+            sx={{ width: "92%" }}
+            id="outlined-basic"
+            size="small"
+            label="Search"
+            variant="outlined"
+          />
+        </div>
+        <div
+          style={{
+            flex: "0.7",
+            display: "flex",
+            // height: "30%",
+            // background: "red",
+            // justifyContent: "center",
+            flexDirection: "column",
+            paddingLeft: "1vw",
+            overflowY: "scroll",
+          }}
+        >
+
           <div style={{ flex: "0.15", background: "blue" }}>
             <IconButton onClick={CreateNewNote}>
               <Add />
@@ -354,6 +390,7 @@ const NotesSummary = ({ notesContent, notesTimestamp, notesColor }) => {
           </div>
         </Card>
       </li>
+
     </div>
   );
 };
@@ -517,5 +554,6 @@ const ColorSelectorPopover = ({ onColorSelect }) => {
         </Card>
       </Popover>
     </div>
+
   );
 };
