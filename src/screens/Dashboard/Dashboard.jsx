@@ -1,24 +1,9 @@
 import React from "react";
 import "../../App.css";
+import { Avatar, Box, Card, Divider, IconButton } from "@mui/material";
 import {
-  Avatar,
-  Box,
-  Card,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Paper,
-  Typography,
-} from "@mui/material";
-import {
-  Assignment,
   AttachMoney,
-  Cancel,
   CurrencyBitcoin,
-  Hail,
   Money,
   MoreVert,
   Recycling,
@@ -100,8 +85,8 @@ const Dashboard = () => {
               sx={{
                 borderRadius: "1px",
                 width: "100%",
-                // height: "2vh",
-                padding: "75px 23px",
+                height: "15vh",
+                // padding: "30px ",
                 backgroundImage: `url(${image})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
@@ -113,21 +98,21 @@ const Dashboard = () => {
 
           {/* TOP VIEWED PROPERTY -> AMAZON */}
           <div style={{ background: "#F3F0EB" }}>
-            <small style={{ color: "black" }}>
-              {" "}
-              Amazon Echo Plus (3nd Gen) <br /> -Premium Quality{" "}
-            </small>
-            <div>
-              {" "}
-              <small
-                className="askingPrice"
-                style={{ background: "black", color: "red" }}
-              >
-                $45.00K-$55.00K{" "}
-                <span style={{ padding: "0 25px", color: "wheat" }}>
-                  Asking Price
-                </span>{" "}
-              </small>{" "}
+            <div className="amazon-content">
+              <div>
+                <div className="content">
+                  <div>Amazon Echo Plus</div>
+                  <div>-Premium Quality</div>
+                </div>
+              </div>
+              <div>
+                <div className="content-price">
+                  <div style={{ color: "red" }}>$45.00K-$55.00K</div>
+                  <div>
+                    <small style={{ color: "green" }}>Asking Price</small>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           {/* END OF TOP VIEWED PROPERTY -> AMAZON */}
@@ -141,7 +126,7 @@ const Dashboard = () => {
               fontWeight: "500",
             }}
           >
-            Top viewed Properties
+            <div style={{ margin: "6px 10px" }}> Top viewed Properties </div>
           </div>
           {/* END OF TOP VIEWED PROPERTY HEADLINE */}
         </Card>
@@ -195,7 +180,6 @@ const Dashboard = () => {
         <Card
           className="totalRevenue "
           sx={{
-            backgroundColor: "black",
             height: "100%",
             width: "100%",
             borderRadius: "1dvw",
@@ -203,28 +187,34 @@ const Dashboard = () => {
           }}
         >
           <div style={{ background: "#F3F0EB" }}>
-            <div style={{ color: "black", fontSize: "19px" }}>Total Sales</div>
-            <div>
+            <div
+              style={{ color: "black", fontSize: "19px", padding: "10px 7px" }}
+            >
+              Total Sales
+            </div>
+            <div style={{ margin: "-10px 0px" }}>
               {" "}
-              <small style={{ color: "green" }}>Oct 26/ 23-Nov</small>{" "}
+              <small style={{ color: "green", margin: "0 7px" }}>
+                Oct 26/ 23-Nov
+              </small>{" "}
             </div>
           </div>
-          <div>
+          <div style={{ margin: "10px" }}>
             <div style={{ background: "#EFECFD", height: "18vh" }}>
-              <div style={{ color: "black", fontSize: "20px" }}>Share</div>
+              <div style={{ color: "black", fontSize: "19px" }}>Share</div>
               <div>
                 {" "}
                 <small style={{ color: "red" }}>$2,453.80</small>{" "}
               </div>
               <div>
-                <small style={{ fontSize: "9.5px", color: "black" }}>
+                <small style={{ fontSize: "7.5px", color: "black" }}>
                   -8.5% year over year
                 </small>
               </div>
             </div>
           </div>
           <div className="flexBTN" style={{ background: "#EFECFD" }}>
-            <div style={{ color: "red" }}>
+            <div style={{ color: "red", margin: "10px 7px" }}>
               <div>$2,213,123.80</div>
               <div>
                 <small> $2,213,123.80</small>
@@ -253,7 +243,6 @@ const Dashboard = () => {
         <Card
           className="totalRevenue "
           sx={{
-            backgroundColor: "black",
             height: "100%",
             width: "100%",
             borderRadius: "1dvw",
@@ -261,28 +250,34 @@ const Dashboard = () => {
           }}
         >
           <div style={{ background: "#F3F0EB" }}>
-            <div style={{ color: "black", fontSize: "19px" }}>Total Sales</div>
-            <div>
+            <div
+              style={{ color: "black", fontSize: "19px", padding: "10px 7px" }}
+            >
+              Total Sales
+            </div>
+            <div style={{ margin: "-10px 0px" }}>
               {" "}
-              <small style={{ color: "green" }}>Oct 26/ 23-Nov</small>{" "}
+              <small style={{ color: "green", margin: "0 7px" }}>
+                Oct 26/ 23-Nov
+              </small>{" "}
             </div>
           </div>
-          <div>
+          <div style={{ margin: "10px" }}>
             <div style={{ background: "#EFECFD", height: "18vh" }}>
-              <div style={{ color: "black", fontSize: "20px" }}>Share</div>
+              <div style={{ color: "black", fontSize: "19px" }}>Share</div>
               <div>
                 {" "}
                 <small style={{ color: "red" }}>$2,453.80</small>{" "}
               </div>
               <div>
-                <small style={{ fontSize: "9.5px", color: "black" }}>
+                <small style={{ fontSize: "7.5px", color: "black" }}>
                   -8.5% year over year
                 </small>
               </div>
             </div>
           </div>
           <div className="flexBTN" style={{ background: "#EFECFD" }}>
-            <div style={{ color: "red" }}>
+            <div style={{ color: "red", margin: "10px 7px" }}>
               <div>$2,213,123.80</div>
               <div>
                 <small> $2,213,123.80</small>
@@ -299,7 +294,7 @@ const Dashboard = () => {
                     border: "1px solid white",
                   }}
                 >
-                  <CurrencyBitcoin />
+                  <AttachMoney />
                 </button>
               </div>
             </div>
