@@ -61,7 +61,7 @@ const PropertyNotes = () => {
     const newNote = {
       note: "",
       timestamp: serverTimestamp(),
-      color: "blue",
+      color: "#747779",
       id: noteIdentifier,
     };
 
@@ -186,7 +186,7 @@ const PropertyNotes = () => {
             flexDirection: "column",
           }}
         >
-          <div style={{ flex: "0.15", background: "blue" }}>
+          <div style={{ flex: "0.15", background: "#747779" }}>
             <IconButton onClick={CreateNewNote}>
               <Add />
             </IconButton>
@@ -323,7 +323,7 @@ const NotesSummary = ({ notesContent, notesTimestamp, notesColor }) => {
           </div>
           <div
             style={{
-              background: "blue",
+              background: "whitesmoke",
               flex: "0.92",
               display: "flex",
               flexDirection: "column",
@@ -459,7 +459,7 @@ const ColorSelectorPopover = ({ onColorSelect }) => {
   const id = open ? "simple-popover" : undefined;
 
   // You can change the colors here
-  const colorArray = ["red", "yellow", "blue", "indigo"];
+  const colorArray = ["red", "yellow", "blue", "#747779"];
 
   return (
     <div>
