@@ -459,7 +459,7 @@ const ColorSelectorPopover = ({ onColorSelect }) => {
   const id = open ? "simple-popover" : undefined;
 
   // You can change the colors here
-  const colorArray = ["red", "yellow", "blue", "green"];
+  const colorArray = ["red", "yellow", "blue", "indigo"];
 
   return (
     <div>
