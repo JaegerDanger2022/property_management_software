@@ -9,7 +9,7 @@ import {
   Recycling,
 } from "@mui/icons-material";
 import PaymentRecieveRow from "../../Recent Payment Receive/PaymentRecieveRow";
-import image from "../../assets/images/jp.jpg";
+import image from "../../assets/images/house.jpg";
 
 const Dashboard = () => {
   return (
@@ -83,12 +83,12 @@ const Dashboard = () => {
           <div>
             <Card
               sx={{
-                borderRadius: "1px",
                 width: "100%",
-                height: "15vh",
+                height: "16vh",
                 // padding: "30px ",
                 backgroundImage: `url(${image})`,
                 backgroundSize: "cover",
+
                 backgroundRepeat: "no-repeat",
                 position: "relative",
               }}
